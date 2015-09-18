@@ -5,7 +5,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.integer  "points",         limit: 4,   default: 0, null: false
       t.integer  "length_of_time", limit: 4
       t.integer  "times_per_week", limit: 4
-      t.integer  "household_id",   limit: 4,               null: false
+      t.integer  "household_id",   limit: 4
       t.datetime "created_at",                             null: false
       t.datetime "updated_at",                             null: false
     end

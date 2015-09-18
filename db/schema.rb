@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "email",        limit: 45,              null: false
     t.string   "name",         limit: 255,             null: false
     t.integer  "points",       limit: 4,   default: 0, null: false
-    t.integer  "household_id", limit: 4,               null: false
+    t.integer  "household_id", limit: 4
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
   end
