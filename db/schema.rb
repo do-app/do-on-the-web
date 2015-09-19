@@ -71,7 +71,6 @@ ActiveRecord::Schema.define(version: 20150919154601) do
 
   add_foreign_key "chores", "households", name: "chores_ibfk_1"
   add_foreign_key "events", "users", name: "fk_events_users"
-  add_foreign_key "households", "users", column: "head_of_household_id", name: "households_ibfk_1"
   add_foreign_key "users", "households", name: "users_ibfk_1"
   add_foreign_key "users_chores", "chores", name: "users_chores_ibfk_2"
   add_foreign_key "users_chores", "users", name: "users_chores_ibfk_1"
