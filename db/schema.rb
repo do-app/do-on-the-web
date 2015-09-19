@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20150919154601) do
 
   create_table "chores", force: :cascade do |t|
     t.string   "name",           limit: 255,             null: false
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "households", force: :cascade do |t|
     t.string   "name",                 limit: 255, null: false
-    t.integer  "head_of_household_id", limit: 4,   null: false
+    t.integer  "head_of_household_id", limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
