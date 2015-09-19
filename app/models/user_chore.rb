@@ -3,4 +3,8 @@ class UserChore < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :chore 
+
+  validates :user, presence: true
+  validates :chore, presence: true
+  validates :completed, presence: true
 end
