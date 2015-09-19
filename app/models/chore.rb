@@ -8,4 +8,6 @@ class Chore < ActiveRecord::Base
   validates :length_of_time, presence: true
   validates :times_per_week, presence: true
   validates :household, presence: true
+  validates :points, :length_of_time, :times_per_week,
+                                          numericality: {greater_than_or_equal_to: 0}
 end
