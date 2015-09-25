@@ -4,18 +4,44 @@ class UsersController < ApplicationController
   end
 
   def create
+    user = User.new(user_params)
+    user.password = params[:user][:password]
+    if user.save
+      session[:user_id] = user.id
+      flash[:success] = "Success! Account created!"
+      redirect_to user
+    else
+      flash[:errors] = user.errors.full_messages
+      redirect_to root_path
+    end
   end
 
   def show
+    @user = User.find_by(params[:id])
   end
 
   def edit
+    @user = User.find_by(params[:id])
   end
 
   def update
+    user = User.find_by(params[:id])
+    user.update(user_paras)
+    if user.save
+      flash[:success] = "Success! Your account has been updated!"
+      redirect_to user
+    else
+      flash[:errors] = user.errors.full_messages
+    end
   end
 
   def destroy
+    user = User.find_by(params[:id])
+    if user.destroy
+      session.delete(:user_id)
+      flash[:success] = "Goodbye!"
+      redirect_to root_path
+    end
   end
 
   private
