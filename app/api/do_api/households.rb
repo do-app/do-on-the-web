@@ -6,6 +6,7 @@ module DoApi
         Household.all
       end
 
+      desc 'Returns a single household by id'
       get ':id' do 
         Household.find_by(id: params[:id])
       end
