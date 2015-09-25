@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   resources :events
   resources :sessions, only: [:new, :create, :destroy]
 
-  mount Do::API => '/'
+  mount DoApi::API => '/'
 end
