@@ -11,21 +11,21 @@ class UsersController < ApplicationController
       flash[:success] = "Success! Account created!"
       redirect_to user
     else
-      flash[:errors] = user.errors.full_messages
+      flash[:errors] = @user.errors.full_messages
       redirect_to new_user_path
     end
   end
 
   def show
-    @user = User.find_by(params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def edit
-    @user = User.find_by(params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def update
-    user = User.find_by(params[:id])
+    user = User.find_by(id: params[:id])
     user.update(user_paras)
     if user.save
       flash[:success] = "Success! Your account has been updated!"
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find_by(params[:id])
+    user = User.find_by(id: params[:id])
     if user.destroy
       session.delete(:user_id)
       flash[:success] = "Goodbye!"
