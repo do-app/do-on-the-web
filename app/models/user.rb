@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_secure_password
+  before_validation :set_points
+
   belongs_to :household
   has_many :events
   has_many :user_chores
@@ -8,5 +11,9 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :name, presence: true
   validates :points, presence: true
-  validates :household, presence: true
+
+  private
+  def set_points
+    self.points ||= 0
+  end
 end

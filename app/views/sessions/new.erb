@@ -1,0 +1,5 @@
+<%= form_tag sessions_path do %>
+  <%= text_field_tag :email, nil, placeholder: 'e-mail' %>
+  <%= password_field_tag :password, nil, placeholder: 'password' %>
+  <%= submit_tag 'Log In' %>
+<% end %>

@@ -1,0 +1,7 @@
+<nav>
+  <% if is_authenticated? %>
+    <%= link_to "Log Out", session_path(session[:user_id]), method: :delete %>
+  <% else %>
+    <%= link_to "Sign Up", new_user_path %> or <%= link_to "Log In", new_session_path %>
+  <% end %>
+</nav>
