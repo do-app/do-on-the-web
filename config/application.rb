@@ -17,6 +17,10 @@ Bundler.require(*Rails.groups)
 
 module DoApp
   class Application < Rails::Application
+    # Autoload API & subdirs
+    config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
