@@ -4,4 +4,5 @@ Rails.application.routes.draw do
     resources :chores
   end
   resources :events
+  resources :sessions, only: [:new, :create, :destroy]
 end
