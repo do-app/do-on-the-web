@@ -29,6 +29,7 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Grape for API
 gem 'grape'
 
+gem 'faker'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
