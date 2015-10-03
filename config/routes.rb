@@ -12,6 +12,4 @@ Rails.application.routes.draw do
 
   resources :events
   resources :sessions, only: [:new, :create, :destroy]
-
-  mount API => '/'
 end

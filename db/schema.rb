@@ -10,7 +10,6 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-
 ActiveRecord::Schema.define(version: 20150925012036) do
 
   create_table "chores", force: :cascade do |t|
@@ -54,6 +53,5 @@ ActiveRecord::Schema.define(version: 20150925012036) do
     t.boolean  "completed",            default: false, null: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-  end
 
 end
