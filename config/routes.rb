@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'dashboard#index'
+ #root 'dashboard#index'
+  root 'users#index'
   resources :dashboard, only: [:index]
   resources :users, except: [:index]
   resources :households do 

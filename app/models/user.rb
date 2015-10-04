@@ -16,7 +16,8 @@ class User < ActiveRecord::Base
   validates :points, presence: true
 
   private
-  def set_points
-    self.points ||= 0
+    def set_points
+      self.points ||= 0
+    end
   end
 end
