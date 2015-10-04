@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
-	session[:user_id] = user.id
+	session[:user_id] = @user.id
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
   def user_params
-    params.require(:user).permit(:name, :email, :points, :household_id)
+    params.require(:user).permit(:name, :email, :password, :points, :household_id)
   end
 
  
