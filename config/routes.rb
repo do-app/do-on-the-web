@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   resources :users, except: [:index]
   resources :households, except: [:index] do 
     resources :chores
+    put 'join', on: :member
+    get 'search', on: :collection
   end
+
   resources :events
   resources :sessions, only: [:new, :create, :destroy]
 
