@@ -21,6 +21,7 @@ class HouseholdsController < ApplicationController
     @household = find_by_id_or_error(params[:id])
     unless current_user.household == @household
       flash[:errors] = "You must be a member of this household to view this page"
+      redirect_to current_user
     end
   end
 
