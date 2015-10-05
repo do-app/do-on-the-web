@@ -26,7 +26,7 @@ class HouseholdsController < ApplicationController
 
   def edit
     @household = find_by_id_or_error(params[:id])
-    if current_user == @household.head_of_household)
+    if current_user == @household.head_of_household
       @household.update(household_params)
     else
       flash[:errors] = ["You must be the head of household to make changes."]
@@ -35,7 +35,7 @@ class HouseholdsController < ApplicationController
 
   def update
     household = find_by_id_or_error(params[:id])
-    if current_user == household.head_of_household)
+    if current_user == household.head_of_household
       household.update(household_params)
     else
       flash[:errors] = ["You must be the head of household to make changes."]
