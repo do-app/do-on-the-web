@@ -8,12 +8,4 @@
   </ul>
 <% end %>
 
-<% if @household.chores %>
-  <ul class="chores">
-    <% @household.chores.each do |chore| %>
-    <li><%= chore.name %> <%= chore.points %> <%= chore.length_of_time %><%= chore.times_per_week %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p><em>This household has no chores!</em></p>
-<% end %>
+<%= render partial: "chores/chores", locals: { chores: @household.chores } %>
