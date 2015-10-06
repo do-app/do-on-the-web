@@ -18,7 +18,11 @@ class HouseholdsController < ApplicationController
   end
 
   def show
-    @household = find_by_id_or_error(params[:id])
+    @household = Household.find_by(id: params[:id])
+    unless @household
+      flash[:errors] = ["Household could not be found"]
+      redirect_to root_path and return
+    end
     unless current_user.household == @household
       flash[:errors] = "You must be a member of this household to view this page"
       redirect_to current_user
@@ -26,7 +30,11 @@ class HouseholdsController < ApplicationController
   end
 
   def edit
-    @household = find_by_id_or_error(params[:id])
+    @household = Household.find_by(id: params[:id])
+    unless @household
+      flash[:errors] = ["Household could not be found"]
+      redirect_to root_path and return
+    end
     unless current_user == @household.head_of_household
       flash[:errors] = ["You must be the head of household to make changes."]
       redirect_to current_user
@@ -34,7 +42,11 @@ class HouseholdsController < ApplicationController
   end
 
   def update
-    household = find_by_id_or_error(params[:id])
+    household = Household.find_by(id: params[:id])
+    unless household
+      flash[:errors] = ["Household could not be found"]
+      redirect_to root_path and return
+    end
     if current_user == household.head_of_household
       household.update(household_params)
     else
@@ -49,7 +61,11 @@ class HouseholdsController < ApplicationController
   end
 
   def join
-    household = find_by_id_or_error(params[:id])
+    household = Household.find_by(id: params[:id])
+    unless household
+      flash[:errors] = ["Household could not be found"]
+      redirect_to root_path and return
+    end
     current_user.household = household
     if current_user.save
       flash[:success] = "You have successfully joined the #{household.name} household!"
@@ -69,7 +85,11 @@ class HouseholdsController < ApplicationController
   end
 
   def destroy
-    household = find_by_id_or_error(params[:id])
+    household = Household.find_by(id: params[:id])
+    unless household
+      flash[:errors] = ["Household could not be found"]
+      redirect_to root_path and return
+    end
     unless current_user == household.head_of_household
       flash[:errors] = ["You must be the head of household to make changes."]
       redirect_to household
@@ -85,15 +105,5 @@ class HouseholdsController < ApplicationController
   private
   def household_params
     params.require(:household).permit(:name)
-  end
-
-  def find_by_id_or_error(id)
-    household = Household.find_by(id: id)
-    if not household
-      flash[:errors] = ["Household could not be found"]
-      # redirect_to root_path 
-    else
-      household
-    end
   end
 end
