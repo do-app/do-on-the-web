@@ -92,7 +92,7 @@ class HouseholdsController < ApplicationController
     household = Household.find_by(id: id)
     if not household
       flash[:errors] = ["Household could not be found"]
-      redirect_to root_path and return
+      # redirect_to root_path 
     else
       household
     end
