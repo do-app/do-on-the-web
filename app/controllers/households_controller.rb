@@ -66,11 +66,15 @@ class HouseholdsController < ApplicationController
       flash[:errors] = ["Household could not be found"]
       redirect_to root_path and return
     end
-    current_user.household = household
-    if current_user.save
-      flash[:success] = "You have successfully joined the #{household.name} household!"
+    if current_user.household
+      flash[:errors] = ["You may only join one household at a time."]
     else
-      flash[:errors] = household.errors.full_messages
+      current_user.household = household
+      if current_user.save
+        flash[:success] = "You have successfully joined the #{household.name} household!"
+      else
+        flash[:errors] = household.errors.full_messages
+      end
     end
     redirect_to household
   end
