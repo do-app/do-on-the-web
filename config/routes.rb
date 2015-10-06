@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   root 'dashboard#index'
   # root 'sessions#new'
   resources :dashboard, only: [:index]
-  resources :users, except: [:index]
-  resources :households do 
+  resources :users , except: [:index]
+  resources :households, except: [:index] do 
     resources :chores
     put 'join', on: :member
     put 'leave', on: :member
