@@ -49,13 +49,13 @@ class HouseholdsController < ApplicationController
     end
     if current_user == household.head_of_household
       household.update(household_params)
+      if household.save
+        flash[:success] = "Household updated!"
+      else
+        flash[:errors] = household.errors.full_messages
+      end
     else
       flash[:errors] = ["You must be the head of household to make changes."]
-    end
-    if household.save
-      flash[:success] = "Household updated!"
-    else
-      flash[:errors] = household.errors.full_messages
     end
     redirect_to household
   end
