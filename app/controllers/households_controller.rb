@@ -80,6 +80,7 @@ class HouseholdsController < ApplicationController
     if household
       redirect_to household
     else
+      flash[:errors] = "No household by the name #{params[:name]} exists!"
       redirect_to back
     end
   end
