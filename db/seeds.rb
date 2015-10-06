@@ -68,15 +68,15 @@ end
 
 NUM_HOUSEHOLDS = Household.count
 
-# User.all.each do |user|
-#   unless user.household
-#     user.household_id = rand(1..NUM_HOUSEHOLDS-1)
-#     user.save
-#   end
-#   rand(1..3).times do 
-#     chores = user.household.chores.sample(4)
-#     chores.each do |chore| 
-#       user.chores << chore
-#     end
-#   end
-# end
+User.all.each do |user|
+  unless user.household
+    user.household_id = rand(1..NUM_HOUSEHOLDS-1)
+    user.save
+  end
+  rand(1..3).times do 
+    chores = user.household.chores.sample(4)
+    chores.each do |chore| 
+      user.chores << chore
+    end
+  end
+end
