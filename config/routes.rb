@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :households, except: [:index] do 
     resources :chores
     put 'join', on: :member
+    put 'leave', on: :member
     get 'search', on: :collection
   end
 
