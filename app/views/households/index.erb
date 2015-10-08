@@ -1,0 +1,7 @@
+<h1>Find your household</h1>
+
+<%= form_tag search_households_path, method: :get do %>
+  <%= label_tag "Find your household by name"%>
+  <%= text_field_tag :search, nil, placeholder: 'name' %>
+  <%= submit_tag 'Find' %>
+<% end %>

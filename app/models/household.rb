@@ -6,4 +6,8 @@ class Household < ActiveRecord::Base
 
   validates :name, presence: true
   validates :head_of_household, presence: true
+
+  def self.search(query)
+    where("name like ?", "%#{query}%") 
+  end
 end

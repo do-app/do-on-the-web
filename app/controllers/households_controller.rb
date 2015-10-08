@@ -2,6 +2,10 @@ class HouseholdsController < ApplicationController
 
   before_action :authenticate
 
+  def index
+    # render 'search'
+  end
+
   def new
     @household = Household.new
   end
@@ -89,22 +93,21 @@ class HouseholdsController < ApplicationController
       flash[:error] = "You are not a member of this household"
       redirect_to household
     else
-      current_user.household = nil
-      unless current_user.save
-        flash[:errors] = current_user.errors.full_messages
+      user = current_user
+      user.household = nil
+      if user.save
+        redirect_to user
+      else
+        flash[:errors] = user.errors.full_messages
         redirect_to household
       end
-      redirect_to current_user
     end
   end
 
-  def search 
-    household = Household.find_by(name: params[:name])
-    if household
-      redirect_to household
-    else
-      flash[:error] = "No household by the name #{params[:name]} exists!"
-      redirect_to back
+  def search
+    p params
+    if params[:search]
+      @households = Household.search(params[:search]).order("created_at DESC")
     end
   end
 
