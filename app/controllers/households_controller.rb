@@ -3,7 +3,6 @@ class HouseholdsController < ApplicationController
   before_action :authenticate
 
   def index
-    # render 'search'
   end
 
   def new
@@ -73,8 +72,9 @@ class HouseholdsController < ApplicationController
     if current_user.household
       flash[:error] = "You may only join one household at a time."
     else
-      current_user.household = household
-      if current_user.save
+      user = current_user
+      user.household = household
+      if user.save
         flash[:success] = "You have successfully joined the #{household.name} household!"
       else
         flash[:errors] = household.errors.full_messages
@@ -105,7 +105,6 @@ class HouseholdsController < ApplicationController
   end
 
   def search
-    p params
     if params[:search]
       @households = Household.search(params[:search]).order("created_at DESC")
     end

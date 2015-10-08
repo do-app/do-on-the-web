@@ -1,2 +1,2 @@
 <li><%= link_to household.name, household_path(household) %>
-  <%= button_to "Join", join_household_path(household)%></li>
+  <%= button_to "Join", join_household_path(household), method: "put" %></li>
