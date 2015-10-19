@@ -12,17 +12,21 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'grape'
-gem 'faker'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
-  gem 'database_cleaner'
-  gem 'launchy'
-  gem 'selenium-webdriver'
+  gem 'factory_girl_rails', '~> 4.4.1'
 
   gem 'faker'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+end
+
+group :test do 
+  gem 'database_cleaner'
+  gem 'capybara', '~> 2.4.3'
+  gem 'launchy', '~>2.4.2'
+  gem 'selenium-webdriver', '~>2.43.0'
 end
 
