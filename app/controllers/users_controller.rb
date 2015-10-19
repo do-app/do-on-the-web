@@ -15,8 +15,12 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    #if already logged in, go to homepage
+    if session[:user_id]
+     redirect_to "/home/index"
+    end
+    
     @user = User.new
-
   end
 
   # GET /users/1/edit
