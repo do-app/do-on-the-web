@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if user.save
       session[:user_id] = user.id
       flash[:success] = "Success! Account created!"
-      redirect_to user
+      redirect_to households_path
     else
       flash[:errors] = user.errors.full_messages
       redirect_to new_user_path
