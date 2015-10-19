@@ -1,0 +1,17 @@
+nav{
+	background-color: green;
+}
+
+#signup{
+	background-color: lightgrey;
+	width: 300px;
+	margin: auto;
+	padding: 50px 0px;
+}
+
+#login{
+	background-color: lightgrey;
+	width: 300px;
+	margin: auto;
+	padding: 50px 0px;
+}
