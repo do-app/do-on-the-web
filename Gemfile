@@ -15,9 +15,7 @@ gem 'grape'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
-  gem 'database_cleaner'
-  gem 'launchy'
-  gem 'selenium-webdriver'
+  gem 'factory_girl_rails', '~> 4.4.1'
   gem 'faker'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
