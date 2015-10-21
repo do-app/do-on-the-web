@@ -182,7 +182,11 @@ describe HouseholdsController do
 
   end
 
-  describe 'PATCH#update' do 
+  describe 'PATCH#update' do
+    before :each do 
+      @old_name = @test_household.name
+      @new_name = "NEWWNAME!"
+    end
 
     context 'when head of household is logged in' do 
       before :each do 
@@ -190,28 +194,42 @@ describe HouseholdsController do
         stub_authorize_user!
       end
 
-      xit 'saves changes to the household with valid attributes' do 
+      it 'saves changes to the household with valid attributes' do 
+        patch :update, id: @test_household,
+        household: attributes_for(:household,
+          name: @new_name)
+        @test_household.reload
+        expect(@test_household.name).to eq(@new_name)
       end
 
-      xit 'does not save changes to household with invalid attributes' do 
+      it 'does not save changes to household with invalid attributes' do 
+        patch :update, id: @test_household,
+        household: attributes_for(:household,
+          name: nil)
+        @test_household.reload
+        expect(@test_household.name).to eq(@old_name)
       end
     end
 
     context 'when household member is logged in ' do 
       before :each do 
-        stub_current_user(@test_head_of_household)
+        stub_current_user(@test_member)
         stub_authorize_user!
       end
 
-      xit 'does not save the changes to the database' do 
+      it 'does not save the changes to the database' do 
+        patch :update, id: @test_household,
+        household: attributes_for(:household,
+          name: @new_name)
+        @test_household.reload
+        expect(@test_household.name).to eq(@old_name)
       end
 
-      xit 'renders a flash error' do 
-      end
-    end
-
-    context 'when user is not logged in 'do 
-      xit 'renders a flash error notice' do 
+      it 'renders a flash error' do 
+        patch :update, id: @test_household,
+        household: attributes_for(:household,
+          name: @new_name)
+        expect(flash[:error]).to be_present
       end
     end
 
