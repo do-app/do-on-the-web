@@ -67,6 +67,7 @@ describe HouseholdsController do
         delete :destroy, id: @test_household
         @test_head_of_household.reload
         expect(@test_head_of_household.household).to eq(nil)
+        expect(@test_head_of_household.households_is_head_of).to be_empty
       end
 
       it 'it removes all other members of the household as a member' do 
