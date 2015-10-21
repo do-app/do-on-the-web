@@ -123,16 +123,20 @@ class HouseholdsController < ApplicationController
       flash[:error] = "Household could not be found"
       redirect_to root_path and return
     end
-    unless current_user == household.head_of_household
+    if current_user != household.head_of_household
       flash[:error] = "You must be the head of household to make changes."
       redirect_to household
-    end
-    if household.destroy
-      flash[:success] = "Your household was deleted"
     else
-      flash[:errors] = household.errors.full_messages
+      if household.destroy
+        household.members.each do |member|
+          member.household = nil
+        end
+        flash[:success] = "Your household was deleted"
+      else
+        flash[:errors] = household.errors.full_messages
+      end
+      redirect_to root_path
     end
-    redirect_to root
   end
 
   private
