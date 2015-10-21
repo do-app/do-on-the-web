@@ -317,42 +317,44 @@ describe HouseholdsController do
 
   describe 'PUT#leave' do 
 
-    context 'when user is logged in and not yet a member of a household' do 
+    before :each do 
+      stub_current_user(@test_member)
+      stub_authorize_user!
+    end
+
+    context 'when user is logged in and is a member of a household' do 
+
+      it 'removes user from the household' do 
+        put :leave, id: @test_household
+        @test_member.reload
+        @test_household.reload
+        expect(@test_member.household).to eq nil
+        expect(@test_household.members).to_not include @test_member
+      end
+
+      it 'redirects to the user page' do 
+        put :leave, id: @test_household
+        expect(response).to redirect_to user_path(@test_member)
+      end
+    end
+
+    context 'when user is logged in but not a member of a household' do 
       before :each do 
-        stub_current_user(@test_non_member)
-        stub_authorize_user!
+        @new_household = create(:household, head_of_household: create(:user))
       end
 
-      xit 'does not change which household the user belongs to' do 
+      it 'does not change which household the user belongs to' do
+        put :leave, id: @new_household 
+        @test_member.reload
+        expect(@test_member.household).to eq @test_household
       end
 
-      xit 'redirects to the household page' do 
-      end
-
-      xit 'renders a flash error notice' do 
+      it 'renders a flash error notice' do 
+        put :leave, id: @new_household 
+        expect(flash[:error]).to be_present
       end
     end
 
-    context 'when user is logged in and already a member of a household' do 
-      before :each do 
-        stub_current_user(@test_member)
-        stub_authorize_user!
-      end
-
-      xit 'changes the household the user belongs to to nil' do 
-      end
-
-      xit 'does removes the user to the household as a member' do 
-      end
-
-      xit 'redirects to the user page' do 
-      end
-    end
-
-    context 'when user is not logged in 'do 
-      xit 'renders a flash error notice' do 
-      end
-    end
   end
 
   describe 'DELETE#destroy' do 
