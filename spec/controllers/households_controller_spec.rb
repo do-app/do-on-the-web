@@ -47,8 +47,7 @@ describe HouseholdsController do
 
       it 'does not save changes to household with invalid attributes' do
         patch :update, id: @test_household,
-        household: attributes_for(:household,
-          name: nil)
+        household: attributes_for(:invalid_household)
         @test_household.reload
         expect(@test_household.name).to eq(@old_name)
       end
