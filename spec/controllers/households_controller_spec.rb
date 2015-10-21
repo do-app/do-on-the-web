@@ -366,7 +366,7 @@ describe HouseholdsController do
 
   end
 
-  describe 'DELETE#destroy' do 
+  describe 'DELETE#destroy' do
 
     context 'when user is logged in and is the head of household' do 
       before :each do 
@@ -374,16 +374,27 @@ describe HouseholdsController do
         stub_authorize_user!
       end
 
-      xit 'removes the household from the database' do 
+      it 'removes the household from the database' do
+        expect{
+          delete :destroy, id: @test_household
+        }.to change(Household, :count).by(-1)
       end
 
-      xit 'does removes the user from the household as a member' do 
+      it 'removes the user from the household as a member' do 
+        delete :destroy, id: @test_household
+        @test_head_of_household.reload
+        expect(@test_head_of_household.household).to eq(nil)
       end
 
-      xit 'it removes all other members of the household as a member' do 
+      it 'it removes all other members of the household as a member' do 
+        delete :destroy, id: @test_household
+        @test_member.reload
+        expect(@test_member.household).to eq(nil)
       end
 
-      xit 'redirects to the user page' do 
+      it 'redirects to the root path' do 
+        delete :destroy, id: @test_household
+        expect(response).to redirect_to root_path
       end
     end
 
@@ -393,24 +404,28 @@ describe HouseholdsController do
         stub_authorize_user!
       end
 
-      xit 'does not destroy the household' do 
+      it 'does not destroy the household' do 
+        expect{
+          delete :destroy, id: @test_household
+        }.to_not change(Household, :count)
       end
 
-      xit 'does not change membership of any household members' do 
+      it 'does not change membership of any household members' do 
+        delete :destroy, id: @test_household
+        @test_head_of_household.reload
+        @test_member.reload
+        expect(@test_head_of_household.household).to eq @test_household
+        expect(@test_member.household).to eq @test_household
       end
 
-      xit 'does not make any changes to the household' do 
+      it 'redirects to the household page' do 
+        delete :destroy, id: @test_household
+        expect(response).to redirect_to household_path(@test_household)
       end
 
-      xit 'redirects to the household page' do 
-      end
-
-      xit 'renders a flash error notice' do 
-      end
-    end
-
-    context 'when user is not logged in 'do 
-      xit 'renders a flash error notice' do 
+      it 'renders a flash error notice' do 
+        delete :destroy, id: @test_household
+        expect(flash[:error]).to be_present
       end
     end
 
