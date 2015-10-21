@@ -4,9 +4,9 @@ describe HouseholdsController do
   before :each do 
     @test_head_of_household = create(:user)
     @test_household = create(:household, head_of_household: @test_head_of_household)
-    @test_head_of_household.household = @test_household
     @test_member = create(:user)
-    @test_member.household = @test_household
+    @test_household.members << @test_head_of_household
+    @test_household.members << @test_member
     @test_non_member = create(:user)
   end
 
