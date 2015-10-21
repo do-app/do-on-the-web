@@ -19,10 +19,10 @@ class HouseholdsController < ApplicationController
       household.members << current_user
       if household.save
         flash[:success] = "Success! Household created!"
-        redirect_to household
       else
         flash[:errors] = household.errors.full_messages
       end
+      redirect_to household
     end
   end
 
