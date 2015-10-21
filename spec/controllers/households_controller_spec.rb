@@ -243,19 +243,38 @@ describe HouseholdsController do
         stub_authorize_user!
       end
 
-      xit 'assigns household(s) with names matching the search query to @households' do 
+      it 'assigns household(s) with names matching the search query to @households' do 
+        get :search, search: @test_household.name
+        expect(assigns(:households)).to include @test_household
       end
 
-      xit 'does not assign any households @households if none were found' do 
+      it 'does not assign any households to @households if none were found' do 
+        query = @test_household.name
+        while query == @test_household.name do 
+          query = Faker::Team.name
+        end
+        get :search, search: query
+        expect(assigns(:households)).to be_empty 
       end
 
-      xit 'does not assign any households to @households if no search query' do 
+      it 'does not assign any households to @households if no search query' do
+        get :search, search: nil
+        expect(assigns(:households)).to eq(nil)
       end
 
-      xit 'does not assign incorrect households to @households' do 
+      it 'does not assign incorrect households to @households' do 
+        new_household = create(:household, head_of_household: create(:user))
+        query = new_household.name
+        while query == new_household.name do 
+          query = Faker::Team.name
+        end
+        get :search, search: query
+        expect(assigns(:households)).to_not include new_household
       end
 
-      xit 'renders the results template' do 
+      it 'renders the results template' do 
+        get :search, search: @test_household.name
+        expect(response).to render_template :search
       end
     end
 
