@@ -10,13 +10,19 @@ class HouseholdsController < ApplicationController
   end
 
   def create
-    household = Household.new(household_params)
-    household.head_of_household = current_user
-    if household.save
-      flash[:success] = "Success! Household created!"
-      redirect_to household
+    if current_user.household
+      flash[:error] = "You already belong to a household!"
+      redirect_to current_user.household
     else
-      flash[:errors] = household.errors.full_messages
+      household = Household.new(household_params)
+      household.head_of_household = current_user
+      household.members << current_user
+      if household.save
+        flash[:success] = "Success! Household created!"
+        redirect_to household
+      else
+        flash[:errors] = household.errors.full_messages
+      end
     end
   end
 
