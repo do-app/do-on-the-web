@@ -315,14 +315,21 @@ describe HouseholdsController do
     end
   end
 
-  describe 'PUT#leave' do 
+  describe 'PUT#leave' do
 
-    before :each do 
-      stub_current_user(@test_member)
-      stub_authorize_user!
+    context 'when head of household is logged in' do 
+      before :each do 
+        stub_current_user(@test_head_of_household)
+        stub_authorize_user!
+      end
     end
 
-    context 'when user is logged in and is a member of a household' do 
+    context 'when member of a household is logged in' do  
+
+      before :each do 
+        stub_current_user(@test_member)
+        stub_authorize_user!
+      end
 
       it 'removes user from the household' do 
         put :leave, id: @test_household
@@ -340,6 +347,8 @@ describe HouseholdsController do
 
     context 'when user is logged in but not a member of a household' do 
       before :each do 
+        stub_current_user(@test_member)
+        stub_authorize_user!
         @new_household = create(:household, head_of_household: create(:user))
       end
 
