@@ -77,6 +77,7 @@ class HouseholdsController < ApplicationController
     end
     if current_user.household
       flash[:error] = "You may only join one household at a time."
+      redirect_to current_user.household
     else
       user = current_user
       user.household = household
@@ -85,8 +86,8 @@ class HouseholdsController < ApplicationController
       else
         flash[:errors] = household.errors.full_messages
       end
+      redirect_to household
     end
-    redirect_to household
   end
 
   def leave
@@ -95,7 +96,7 @@ class HouseholdsController < ApplicationController
       flash[:error] = "Household could not be found"
       redirect_to root_path and return
     end
-    unless current_user.household = household
+    unless current_user.household == household
       flash[:error] = "You are not a member of this household"
       redirect_to household
     else
