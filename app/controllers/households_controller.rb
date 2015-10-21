@@ -128,9 +128,6 @@ class HouseholdsController < ApplicationController
       redirect_to household
     else
       if household.destroy
-        household.members.each do |member|
-          member.household = nil
-        end
         flash[:success] = "Your household was deleted"
       else
         flash[:errors] = household.errors.full_messages
