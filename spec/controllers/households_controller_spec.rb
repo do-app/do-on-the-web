@@ -89,6 +89,25 @@ describe HouseholdsController do
       stub_authorize_user!
     end
 
+    describe 'POST#create' do 
+      it 'does not save the household' do 
+        expect{
+          post :create, household: attributes_for(:household)
+        }.to_not change(Household, :count)
+      end
+
+      it 'does not change the household membership of the user' do 
+        post :create, household: attributes_for(:household)
+        @test_member.reload
+        expect(@test_member.household).to eq @test_household
+      end
+
+      it 'renders a flash error notice' do 
+        post :create, household: attributes_for(:household)
+        expect(flash[:error]).to be_present
+      end
+    end
+
     describe 'GET#show' do 
       it 'assigns the correct Household to @household' do 
         get :show, id: @test_household
@@ -223,6 +242,32 @@ describe HouseholdsController do
       end
     end
 
+    describe 'POST#create' do 
+       it 'saves a household with valid attributes' do 
+        expect{
+          post :create, household: attributes_for(:household)
+        }.to change(Household, :count).by(1)
+      end
+
+      it 'does not save a household with invalid attributes' do 
+        expect{
+          post :create, household: attributes_for(:invalid_household)
+        }.to_not change(Household, :count)
+      end
+
+      it 'sets the user as head of household' do 
+        post :create, household: attributes_for(:household)
+        @test_non_member.reload
+        expect(@test_non_member.households_is_head_of.length).to eq(1)
+      end
+
+      it 'sets the user as a member of the household' do 
+        post :create, household: attributes_for(:household)
+        @test_non_member.reload
+        expect(@test_non_member.household).to_not eq(nil)
+      end
+    end
+
     describe 'GET#show' do     
       it 'redirects to the user page' do 
         get :show, id: @test_household
@@ -304,6 +349,13 @@ describe HouseholdsController do
     end
 
     describe 'GET#new' do 
+      it 'redirects to the home page' do 
+        get :new
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    describe 'POST#create' do 
       it 'redirects to the home page' do 
         get :new
         expect(response).to redirect_to root_path
