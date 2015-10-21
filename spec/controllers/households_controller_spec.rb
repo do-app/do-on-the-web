@@ -275,10 +275,17 @@ describe HouseholdsController do
         stub_authorize_user!
       end
 
-      xit 'makes the user a member of the household' do 
+      it 'makes the user a member of the household' do 
+        put :join, id: @test_household
+        @test_non_member.reload
+        @test_household.reload
+        expect(@test_non_member.household).to eq @test_household
+        expect(@test_household.members).to include @test_non_member
       end
 
-      xit 'redirects to the household page' do 
+      it 'redirects to the household page' do 
+        put :join, id: @test_household
+        expect(response).to redirect_to household_path(@test_household)
       end
     end
 
@@ -286,26 +293,26 @@ describe HouseholdsController do
       before :each do 
         stub_current_user(@test_member)
         stub_authorize_user!
+        @new_household = create(:household, head_of_household: create(:user))
       end
 
-      xit 'does not change which household the user belongs to' do 
+      it 'does not change which household the user belongs to' do
+        put :join, id: @new_household
+        @test_member.reload
+        expect(@test_member.household).to eq(@test_household)
       end
 
-      xit 'does not add the user to the household as a member' do 
+      it 'does not add the user to the household as a member' do 
+        put :join, id: @new_household
+        @new_household.reload
+        expect(@new_household.members).to_not include @test_member
       end
 
-      xit 'redirects to the household page' do 
-      end
-
-      xit 'renders a flash error notice' do 
+      it 'renders a flash error notice' do
+        put :join, id: @new_household
+        expect(flash[:error]).to be_present
       end
     end
-
-    context 'when user is not logged in 'do 
-      xit 'renders a flash error notice' do 
-      end
-    end
-
   end
 
   describe 'PUT#leave' do 
