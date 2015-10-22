@@ -1,6 +1,6 @@
-<% if is_authenticated? 
-  
-end %>
+<% if is_authenticated? %>
+        <%  link_to _to home#index %>
+<% end %>
 
 
 <%= stylesheet_link_tag "styles" %>

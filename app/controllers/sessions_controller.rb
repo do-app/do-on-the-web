@@ -1,13 +1,17 @@
 class SessionsController < ApplicationController
 
   def new
+    if logged_in?
+      redirect_to "/home/index"
+    end   
   end
 
   def create
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id 
-      flash[:success] = "Hello, #{user.name}!"
+      session[:user_name] = user.name
+      flash[:success] = "Hello, #{session[:user_name]}!"
       redirect_to user_path(user)
     else 
       flash[:errors] = ["Invalid password or email address"]
@@ -23,5 +27,9 @@ class SessionsController < ApplicationController
       flash[:error] = "Something went wrong with your logout"
       redirect_to :back
     end
+  end
+
+  def logged_in?
+   return !!session[:user_id]
   end
 end

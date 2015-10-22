@@ -15,6 +15,11 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    #if already logged in, go to homepage
+    if session[:user_id]
+     redirect_to "/home/index"
+    end
+    
     @user = User.new
   end
 
@@ -70,7 +75,7 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
   def user_params
-    params.require(:user).permit(:name, :email, :password, :points, :household_id)
+    params.require(:user).permit(:name, :email, :email_confirmation,  :password, :password_confirmation, :points, :household_id)
   end
 
  
