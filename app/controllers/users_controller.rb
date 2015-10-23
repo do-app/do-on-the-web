@@ -39,29 +39,28 @@ class UsersController < ApplicationController
   def edit
   end
 
-  # POST /users
-  # POST /users.json
-  def create
-    @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-        session[:user_id] = @user.id
-      end
+  # PATCH/PUT /users/1
+  # PATCH/PUT /users/1.json
+  def update
+    if params[:user][:password]
+      @user.password = params[:user][:password]
+    end
+    if @user.update(user_params)
+      flash[:success] = "Your account has been updated!"
+      redirect_to @user
+    else
+      flash[:errors] = @user.errors.full_messages
+      render :edit
     end
   end
-
 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-	    session.delete(:user_id)
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    if @user.destroy
+      session.delete(:user_id)
+      redirect_to root_path
     end
   end
 
