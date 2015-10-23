@@ -48,9 +48,17 @@ describe ChoresController do
     end
 
     describe 'GET#new' do 
-      it 'redirects to the users own household page' do
+      it 'redirects to the search page if user has no household' do
         get :new, household_id: @test_household
         expect(response).to redirect_to households_path
+      end
+
+      it 'redirects to the users own household page if user has a household' do
+        @new_household = create(:household, 
+                                head_of_household: @test_non_member)
+        @new_household.members << @test_non_member
+        get :new, household_id: @test_household
+        expect(response).to redirect_to @new_household
       end
 
       it 'renders a flash error' do 
