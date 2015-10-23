@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root 'sessions#new'
   resources :dashboard, only: [:index]
   resources :users , except: [:index]
-  resources :households, except: [:index] do 
+  resources :households do 
     resources :chores
     put 'join', on: :member
     put 'leave', on: :member

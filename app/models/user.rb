@@ -19,5 +19,4 @@ class User < ActiveRecord::Base
     def set_points
       self.points ||= 0
     end
-  end
 end
