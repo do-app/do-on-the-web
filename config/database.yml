@@ -13,13 +13,17 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
+  timeout: 5000
   username: root
   password:
   socket: /tmp/mysql.sock
 
+
 development:
   <<: *default
-  database: do-app_dev
+  database: mydatabase
+  username: root
+  password: 
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -49,6 +53,7 @@ test:
 #
 production:
   <<: *default
-  database: do-app_production
-  username: do-app
-  password: <%= ENV['DO-APP_DATABASE_PASSWORD'] %>
+  host: localhost 
+  database: mydatabase
+  username: root
+  password: dbdoapp2015
