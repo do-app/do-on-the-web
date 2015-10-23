@@ -93,11 +93,11 @@ class HouseholdsController < ApplicationController
   def leave
     household = Household.find_by(id: params[:id])
     unless household
-      flash[:errors] = ["Household could not be found"]
+      flash[:error] = "Household could not be found"
       redirect_to root_path and return
     end
-    unless current_user.household = household
-      flash[:errors] = ["You are not a member of this household"]
+    unless current_user.household == household
+      flash[:error] = "You are not a member of this household"
       redirect_to household
     else
       user = current_user
