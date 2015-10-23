@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150925012036) do
   create_table "users_chores", force: :cascade do |t|
     t.integer  "user_id",    limit: 4,                 null: false
     t.integer  "chore_id",   limit: 4,                 null: false
-    t.boolean  "completed",            default: false, null: false
+    t.boolean  "completed",            default: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
   end

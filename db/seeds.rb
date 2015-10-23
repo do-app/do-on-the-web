@@ -22,8 +22,8 @@ CAPSTONE = ["Anna", "Pam", "Andrew", "Jerry", "Chu"]
       name: Faker::Name.name,
       email: Faker::Internet.email
     )
-  u.password = "password"
-  u.save
+  u.password = 'password'
+  u.save!
 end
 
 5.times do |user_id|
@@ -39,13 +39,14 @@ end
                               length_of_time: CHORES[chore_name][2]
                             )
   end
-  household.save
+  household.save!
 end
 
 CAPSTONE.each do |classmate|
-  c = User.new(name: classmate, email: "#{classmate.downcase}@#{classmate.downcase}.com")
-  c.password = "password" 
-  c.save
+  c = User.new(name: classmate,
+                email: "#{classmate.downcase}@#{classmate.downcase}.com")
+  c.password = 'password'
+  c.save!
 end
 
 capstone_house = Household.create(name: "Capstone")
@@ -62,9 +63,9 @@ capstone_house.save
 
 CAPSTONE.each do |classmate|
   c = User.find_by(name: classmate)
-  c.household = capstone_house
-  c.save!
+  capstone_house.members << c
 end
+
 
 NUM_HOUSEHOLDS = Household.count
 
