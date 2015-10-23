@@ -3,10 +3,6 @@ class HouseholdsController < ApplicationController
   before_action :authenticate
 
   def index
-<<<<<<< HEAD
-=======
-    # render 'search'
->>>>>>> implement simple search for households by name
   end
 
   def new
@@ -115,19 +111,9 @@ class HouseholdsController < ApplicationController
     end
   end
 
-  def search 
-    household = Household.find_by(name: params[:name])
-    if household
-      redirect_to household
-    else
-      user = current_user
-      user.household = nil
-      if user.save
-        redirect_to user
-      else
-        flash[:errors] = user.errors.full_messages
-        redirect_to household
-      end
+  def search
+    if params[:search]
+      @households = Household.search(params[:search]).order("created_at DESC")
     end
   end
 
