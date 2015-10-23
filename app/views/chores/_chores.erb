@@ -1,0 +1,9 @@
+<% if chores %>
+  <ul class="chores">
+    <% chores.each do |chore| %>
+    <li><%= chore.name %> <%= chore.points %> <%= chore.length_of_time %><%= chore.times_per_week %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><em>There are no chores!</em></p>
+<% end %>

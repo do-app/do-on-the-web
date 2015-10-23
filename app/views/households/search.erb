@@ -1,0 +1,11 @@
+<h3>Results</h3>
+
+<ul class="results">
+  <% if @households %>
+    <% @households.each do |household| %>
+      <%= render partial: 'households/listing', locals: {household: household} %>
+    <% end %>
+  <% else %>
+    <p class="no-results"><em>No households match your search!</em></p>
+  <% end %>
+</ul>

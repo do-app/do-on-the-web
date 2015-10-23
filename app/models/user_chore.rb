@@ -6,5 +6,4 @@ class UserChore < ActiveRecord::Base
 
   validates :user, presence: true
   validates :chore, presence: true
-  validates :completed, presence: true
 end
