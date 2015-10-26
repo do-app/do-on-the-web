@@ -108,6 +108,42 @@ describe ChoresController do
         expect(@test_chore.name).to eq(@old_name)
       end
     end
+
+    describe 'DELETE#destroy' do 
+      it 'removes the chore from the database if chore is not assigned to them' do
+        expect{
+          delete :destroy, household_id: @test_household, id: @test_chore
+        }.to change(Chore, :count).by(-1)
+      end
+
+      it 'removes the chore from the household if chore is not assigned to them' do 
+        delete :destroy, household_id: @test_household, id: @test_chore
+        @test_household.reload
+        expect(@test_household.chores).to_not include (@test_chore)
+      end
+
+      it 'redirects to the household page if chore is not assigned to them' do
+        delete :destroy, household_id: @test_household, id: @test_chore
+        expect(response).to redirect_to @test_household
+      end
+
+      xit 'does not remove the chore from the database if chore is assigned to them' do
+        expect{
+          delete :destroy, household_id: @test_household, id: @test_chore
+        }.to_not change(Chore, :count)
+      end
+
+      xit 'does not remove the chore from the household if chore is assigned to them' do 
+        delete :destroy, household_id: @test_household, id: @test_chore
+        @test_household.reload
+        expect(@test_household.chores).to include (@test_chore)
+      end
+
+      xit 'renders a flash error notice if chore is assigned to them' do
+        delete :destroy, household_id: @test_household, id: @test_chore
+        expect(flash[:error]).to be_present
+      end
+    end
   end
 
   describe 'non member access' do 

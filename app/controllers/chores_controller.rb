@@ -47,6 +47,18 @@ class ChoresController < ApplicationController
   end
 
   def destroy 
+    household = Household.find_by(id: params[:household_id])
+    chore = Chore.find_by(id: params[:id])
+    redirect_to household and return unless chore_belongs_to_household? chore, household
+    if validate_current_user_belongs_to_household (household)
+      if chore.destroy
+        flash[:success] = "Your chore was deleted!"
+        redirect_to household
+      else
+        flash[:errors] = chore.errors.full_messages
+        redirect_to household
+      end
+    end
   end
 
   private
