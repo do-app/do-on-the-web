@@ -9,13 +9,12 @@ default: &default
   encoding: utf8
   pool: 5
   timeout: 5000
-  socket: /tmp/mysql.sock
 
 development:
   <<: *default
   database: mydatabase
-  username: root
-  password: 
+  username: capstone
+  password: capstone
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -24,11 +23,12 @@ test:
   <<: *default
   database: do-app_test
   username: root
-  password: 
+  password: dbdoapp2015
 
 production:
   <<: *default
   host: localhost 
   database: mydatabase
-  username: root
-  password: dbdoapp2015
+  username: capstone
+  password: capstone
+
