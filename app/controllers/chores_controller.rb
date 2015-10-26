@@ -46,6 +46,9 @@ class ChoresController < ApplicationController
     end
   end
 
+  def assign
+  end
+
   def destroy 
     household = Household.find_by(id: params[:household_id])
     chore = Chore.find_by(id: params[:id])
