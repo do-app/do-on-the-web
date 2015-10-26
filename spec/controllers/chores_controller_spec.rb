@@ -73,9 +73,39 @@ describe ChoresController do
         expect(assigns(:chore)).to eq(@test_chore)
       end
 
+      it 'redirects if chore does not belong to household' do 
+        @new_household = create(:household, head_of_household: @test_member)
+        get :edit, household_id: @new_household, id: @test_chore
+        expect(response).to redirect_to @new_household
+      end
+
       it 'renders the edit template' do 
         get :edit, household_id: @test_household, id: @test_chore
         expect(response).to render_template :edit
+      end
+    end
+
+    describe 'PATCH#update' do 
+      before :each do 
+        @old_name = @test_chore.name
+        @new_name = @test_chore.name
+        while @new_name == @old_name do 
+          @new_name = Faker::Team.name
+        end
+      end
+
+      it 'saves changes to the chore with valid attributes' do 
+        patch :update, household_id: @test_household, id: @test_chore,
+        chore: attributes_for(:chore, name: @new_name)
+        @test_chore.reload
+        expect(@test_chore.name).to eq(@new_name)
+      end
+
+      it 'does not save changes to chore with invalid attributes' do
+         patch :update, household_id: @test_household, id: @test_chore,
+        chore: attributes_for(:invalid_chore)
+        @test_chore.reload
+        expect(@test_chore.name).to eq(@old_name)
       end
     end
   end
@@ -127,13 +157,44 @@ describe ChoresController do
         @new_household = create(:household, 
                                 head_of_household: @test_non_member)
         @new_household.members << @test_non_member
-        @new_chore = create(:chore, household: @new_household)
         get :edit, household_id: @test_household, id: @test_chore
         expect(response).to redirect_to @new_household
       end
 
       it 'redirects to the household search page if use does not have a household' do 
         get :edit, household_id: @test_household, id: @test_chore
+        expect(response).to redirect_to households_path
+      end
+    end
+
+    describe 'PATCH#update' do 
+      before :each do 
+        @old_name = @test_chore.name
+        @new_name = @test_chore.name
+        while @new_name == @old_name do 
+          @new_name = Faker::Team.name
+        end
+      end
+
+      it 'does not save changes to chore with valid attributes' do
+         patch :update, household_id: @test_household, id: @test_chore,
+        chore: attributes_for(:chore, name: @new_name)
+        @test_chore.reload
+        expect(@test_chore.name).to eq(@old_name)
+      end
+
+      it 'redirects to the users own household if use has a household' do 
+        @new_household = create(:household, 
+                                head_of_household: @test_non_member)
+        @new_household.members << @test_non_member
+        patch :update, household_id: @test_household, id: @test_chore,
+        chore: attributes_for(:chore, name: @new_name)
+        expect(response).to redirect_to @new_household
+      end
+
+      it 'redirects to the household search page if use does not have a household' do 
+        patch :update, household_id: @test_household, id: @test_chore,
+        chore: attributes_for(:chore, name: @new_name)
         expect(response).to redirect_to households_path
       end
     end

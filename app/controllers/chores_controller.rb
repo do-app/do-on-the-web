@@ -41,7 +41,19 @@ class ChoresController < ApplicationController
   end
 
   def update
-
+    household = Household.find_by(id: params[:household_id])
+    chore = Chore.find_by(id: params[:id])
+    redirect_to household and return unless chore_belongs_to_household? chore, household
+    if validate_current_user_belongs_to_household (household)
+      chore.update(chore_params)
+      if chore.save
+        flash[:success] = "Chore updated!"
+        redirect_to household
+      else 
+        flash[:errors] = chore.errors.full_messages
+        redirect_to household
+      end
+    end
   end
 
   def destroy 
