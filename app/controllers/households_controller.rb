@@ -38,26 +38,22 @@ class HouseholdsController < ApplicationController
   def edit
     @household = Household.find_by(id: params[:id])
     redirect_to root_path and return unless household_exists? @household
-    unless current_user == @household.head_of_household
-      flash[:error] = "You must be the head of household to make changes."
-      redirect_to current_user
-    end
+    validate_current_user_is_head_of_household (@household)
   end
 
   def update
     household = Household.find_by(id: params[:id])
     redirect_to root_path and return unless household_exists? household
-    if current_user == household.head_of_household
+    if validate_current_user_is_head_of_household (household)
       household.update(household_params)
       if household.save
         flash[:success] = "Household updated!"
+        redirect_to household
       else
         flash[:errors] = household.errors.full_messages
+        redirect_to household
       end
-    else
-      flash[:error] = "You must be the head of household to make changes."
     end
-    redirect_to household
   end
 
   def join
@@ -105,10 +101,7 @@ class HouseholdsController < ApplicationController
   def destroy
     household = Household.find_by(id: params[:id])
     redirect_to root_path and return unless household_exists? household
-    if current_user != household.head_of_household
-      flash[:error] = "You must be the head of household to make changes."
-      redirect_to household
-    else
+    if validate_current_user_is_head_of_household (household)
       if household.destroy
         flash[:success] = "Your household was deleted"
       else
@@ -129,6 +122,15 @@ class HouseholdsController < ApplicationController
     else
       flash[:error] = "Household could not be found"
       false
+    end
+  end
+
+  def validate_current_user_is_head_of_household (household)
+    if current_user != household.head_of_household
+      flash[:error] = "You must be the head of household to make changes."
+      redirect_to current_user and return
+    else
+      true
     end
   end
 end
