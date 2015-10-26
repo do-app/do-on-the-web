@@ -17,6 +17,20 @@ class ChoresController < ApplicationController
   end
 
   def create
+    household = Household.find_by(id: params[:household_id])
+    if current_user.household == household
+      chore = Chore.new(chore_params)
+      household.chores << chore
+      if household.save
+        flash[:success] = "Success! Chore created!"
+      else 
+        flash[:errors] = household.errors.full_messages
+      end
+      redirect_to household
+    else
+      flash[:error] = "You must be a member of this household to create a new chore"
+      redirect_to root_path
+    end
   end
 
   def edit

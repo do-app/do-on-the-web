@@ -39,6 +39,36 @@ describe ChoresController do
         expect(response).to render_template :new
       end
     end
+
+    describe 'POST#create' do 
+      it 'saves a chore with valid attributes to the database' do 
+        expect{
+          post :create, household_id: @test_household, chore: attributes_for(:chore)
+          }.to change(Chore, :count).by(1)
+      end
+
+      it 'does not save a chore with invalid attributes' do 
+        expect{
+          post :create, household_id: @test_household, chore: attributes_for(:invalid_chore)
+          }.to_not change(Chore, :count)
+      end
+
+      it 'saves a valid chore to the correct household' do
+        old_count = @test_household.chores.count 
+        post :create, household_id: @test_household, chore: attributes_for(:chore)
+        @test_household.reload
+        new_count = @test_household.chores.count
+        expect(new_count - old_count).to eq(1)
+      end
+
+      it ' does not saves an invalid chore to the correct household' do
+        old_count = @test_household.chores.count 
+        post :create, household_id: @test_household, chore: attributes_for(:invalid_chore)
+        @test_household.reload
+        new_count = @test_household.chores.count
+        expect(new_count - old_count).to eq(0)
+      end
+    end
   end
 
   describe 'non member access' do 
@@ -64,6 +94,22 @@ describe ChoresController do
       it 'renders a flash error' do 
         get :new, household_id: @test_household
         expect(flash[:error]).to be_present
+      end
+    end
+
+    describe 'POST#create' do 
+      it 'does not save a chore with valid attributes to the database' do 
+        expect{
+          post :create, household_id: @test_household, chore: attributes_for(:chore)
+        }.to_not change(Chore, :count)
+      end
+
+      it 'does not save a chore with valid attributes to a household' do 
+        old_count = @test_household.chores.count 
+        post :create, household_id: @test_household, chore: attributes_for(:chore)
+        @test_household.reload
+        new_count = @test_household.chores.count
+        expect(new_count - old_count).to eq(0)
       end
     end
   end
