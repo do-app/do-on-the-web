@@ -2,19 +2,11 @@ require 'rails_helper'
 
 describe ChoresController do 
   before :each do 
-    @test_head_of_household = create(:user)
     @test_member = create(:user)
     @test_non_member = create(:user)
-    @test_household = create(:household, head_of_household: @test_head_of_household)
+    @test_household = create(:household, head_of_household: @test_member)
     @test_household.members << @test_member
-    @test_household.members << @test_head_of_household
-  end
-
-  describe 'head of household access' do
-    before :each do 
-      stub_current_user(@test_head_of_household)
-      stub_authorize_user!
-    end
+    @test_chore = create(:chore, household: @test_household)
   end
 
   describe 'household member access' do 
@@ -69,6 +61,23 @@ describe ChoresController do
         expect(new_count - old_count).to eq(0)
       end
     end
+
+    describe 'GET#edit' do 
+      it 'assigns the correct Household to @household' do 
+        get :edit, household_id: @test_household, id: @test_chore
+        expect(assigns(:household)).to eq(@test_household)
+      end
+
+      it 'assigns the correct Chore to @chore' do 
+        get :edit, household_id: @test_household, id: @test_chore
+        expect(assigns(:chore)).to eq(@test_chore)
+      end
+
+      it 'renders the edit template' do 
+        get :edit, household_id: @test_household, id: @test_chore
+        expect(response).to render_template :edit
+      end
+    end
   end
 
   describe 'non member access' do 
@@ -112,6 +121,22 @@ describe ChoresController do
         expect(new_count - old_count).to eq(0)
       end
     end
+
+    describe 'GET#edit' do 
+      it 'redirects to the users own household if use has a household' do 
+        @new_household = create(:household, 
+                                head_of_household: @test_non_member)
+        @new_household.members << @test_non_member
+        @new_chore = create(:chore, household: @new_household)
+        get :edit, household_id: @test_household, id: @test_chore
+        expect(response).to redirect_to @new_household
+      end
+
+      it 'redirects to the household search page if use does not have a household' do 
+        get :edit, household_id: @test_household, id: @test_chore
+        expect(response).to redirect_to households_path
+      end
+    end
   end
 
   describe 'guest access' do 
@@ -121,7 +146,6 @@ describe ChoresController do
         expect(response).to redirect_to root_path
       end
     end
-
   end
 
 end

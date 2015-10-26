@@ -34,6 +34,17 @@ class ChoresController < ApplicationController
   end
 
   def edit
+    @household = Household.find_by(id: params[:household_id])
+    if current_user.household == @household
+      @chore = Chore.find_by(id: params[:id])
+    else
+      flash[:error] = "You must be a member of this household to edit this chore."
+      if current_user.household
+        redirect_to current_user.household
+      else 
+        redirect_to households_path
+      end
+    end
   end
 
   def update
