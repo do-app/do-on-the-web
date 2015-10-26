@@ -243,6 +243,13 @@ describe ChoresController do
         expect(response).to redirect_to root_path
       end
     end
+
+    describe 'GET#edit' do 
+      it 'redirects to the home page' do 
+        get :edit, household_id: @test_household, id: @test_chore
+        expect(response).to redirect_to root_path
+      end
+    end
   end
 
 end
