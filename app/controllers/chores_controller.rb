@@ -47,6 +47,18 @@ class ChoresController < ApplicationController
   end
 
   def assign
+    household = Household.find_by(id: params[:household_id])
+    chore = Chore.find_by(id: params[:id])
+    redirect_to household and return unless chore_belongs_to_household? chore, household
+    if validate_current_user_belongs_to_household (household)
+      if current_user.chores << chore
+        flash[:success] = "#{chore.name} has been assigned to you."
+        redirect_to household
+      else 
+        flash[:errors] = current_user.errors.full_messages
+        redirect_to household
+      end
+    end
   end
 
   def destroy 

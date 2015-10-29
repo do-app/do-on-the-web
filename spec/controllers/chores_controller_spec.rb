@@ -144,6 +144,14 @@ describe ChoresController do
         expect(flash[:error]).to be_present
       end
     end
+
+    describe 'PUT#assign' do 
+      it 'adds the chore to the list of current users chores' do 
+        put :assign, household_id: @test_household, id: @test_chore
+      expect(@test_member.chores).to include @test_chore
+      end
+
+    end
   end
 
   describe 'non member access' do 
@@ -232,6 +240,20 @@ describe ChoresController do
         patch :update, household_id: @test_household, id: @test_chore,
         chore: attributes_for(:chore, name: @new_name)
         expect(response).to redirect_to households_path
+      end
+    end
+
+    describe "PUT#assign" do 
+      it 'does not change the current users chores' do 
+        chores = @test_non_member.chores
+        put :assign, household_id: @test_household, id: @test_chore
+        @test_non_member.reload
+        expect(@test_non_member.chores).to eq chores
+      end
+
+      it 'renders a flash rerror messages' do 
+        put :assign, household_id: @test_household, id: @test_chore
+        expect(flash[:error]).to be_present
       end
     end
   end
