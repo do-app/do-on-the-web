@@ -1,0 +1,5 @@
+class HomeController < ApplicationController
+  match 'home' =>'home
+  def index
+  end
+end
