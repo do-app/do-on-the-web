@@ -78,15 +78,31 @@ nav > div > a:visited{
 	margin: 1%; 
 }
 
-#chores_list > table > th {
-	
-	color: red;
+#chores_list table th {
+	padding: 10px;
 }
 
+#chores_list table td{
+	padding: 10px;
+}
 .chore{
 	width: 100%;
 }
 
 .chore_status{
 	padding: 5px;
+}
+
+#points_indicator{
+	text-align: center;
+	background-color: lightgrey;
+	display: inline-block;
+	width: 15%;
+	height: 150px;
+	padding: 15px 0 0 0;
+	margin: 2% 0 0 1%;
+}
+
+#points_indicator  h1 {
+	font-size: 40px;
 }
