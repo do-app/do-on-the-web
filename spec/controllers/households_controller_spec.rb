@@ -207,7 +207,7 @@ describe HouseholdsController do
 
       it 'redirects to the household page' do 
         delete :destroy, id: @test_household
-        expect(response).to redirect_to household_path(@test_household)
+        expect(response).to redirect_to user_path(@test_member)
       end
 
       it 'renders a flash error notice' do 
