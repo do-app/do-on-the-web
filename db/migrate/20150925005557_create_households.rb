@@ -5,5 +5,6 @@ class CreateHouseholds < ActiveRecord::Migration
       t.integer :head_of_household_id
       t.timestamps null: false
     end
+
   end
 end
