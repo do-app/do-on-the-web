@@ -1,7 +1,15 @@
 <% if chores %>
   <ul class="chores">
     <% chores.each do |chore| %>
-    <li><%= chore.name %> <%= chore.points %> <%= chore.length_of_time %><%= chore.times_per_week %></li>
+    <li class="chore">
+      <%= chore.name %>
+      <%= chore.points %>
+      <%= chore.length_of_time %>
+      <%= chore.times_per_week %>
+      <div class="edit">
+        <%= button_to "Edit", edit_household_chore_path(chore.household, chore), method: :get %>
+      </div>
+    </li>
     <% end %>
   </ul>
 <% else %>

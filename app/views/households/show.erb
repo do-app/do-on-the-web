@@ -2,6 +2,8 @@
 
 <% if current_user.household == @household %>
   <%= button_to "Leave Household", leave_household_path(@household), method: :put %>
+
+  <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
 <% end %>
 
 <% unless current_user.household %>
