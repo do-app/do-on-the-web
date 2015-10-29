@@ -1,3 +1,6 @@
-<h3>Create new household</h3>
+
+<h2>Think of a name and create your own household!</h2>
 
 <%= render partial: "households/form", locals: { household: @household } %>
+
+<h2><%= link_to "Or if you've been invited to one, you can look it up!", households_path %> </h2>

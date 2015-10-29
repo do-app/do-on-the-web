@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   
-  get "/home/index"
-  
+  get "/home/index", as: "home"
+      
   # root 'dashboard#index'
   root 'sessions#new'
   resources :dashboard, only: [:index]
   resources :users , except: [:index]
   resources :households do 
-    resources :chores
+    resources :chores, :unregistered
     put 'join', on: :member
     put 'leave', on: :member
     get 'search', on: :collection
