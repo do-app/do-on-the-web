@@ -1,31 +1,5 @@
-
 nav{
 	background-color: green;
-	height: 50px;
-	width: 100%;
-	margin: 0;
-	font-size: 20px;
-}
-
-nav > div{	
-	/*background-color: red;*/
-	display: inline-block;
-	height: 100%;
-	line-height: 50px;
-	padding: 0px 10px;
-	color: white;
-}
-
-nav > div >a:link{
-	color: white;
-}
-
-nav > div > a:visited{
-	color: white;
-}
-
-#logout{
-	float: right;
 }
 
 #signup{

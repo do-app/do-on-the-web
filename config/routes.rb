@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  
-  get "/home/index"
-  
+  get 'home/index'
+
   # root 'dashboard#index'
   root 'sessions#new'
   resources :dashboard, only: [:index]
