@@ -1,4 +1,8 @@
 
+a:link{
+	text-decoration: none;
+}
+
 nav{
 	background-color: green;
 	height: 50px;
@@ -40,4 +44,49 @@ nav > div > a:visited{
 	width: 300px;
 	margin: auto;
 	padding: 50px 0px;
+}
+
+
+#members_list{
+	background: lightgrey;
+	width: 15%;
+	padding: 10px 0;
+	text-align: center;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#members_list > ul{
+	list-style: none;
+	padding: 0;
+	
+}
+
+#chores_list{
+	background-color: darkgray;
+	width: 80%;
+	height: 300px;
+	display: inline-block;
+	text-align: center;
+	float: right;
+	margin: 0 2%;
+	
+}
+
+#chores_list > table, th, td {
+	border: 1px solid black;
+	margin: 1%; 
+}
+
+#chores_list > table > th {
+	
+	color: red;
+}
+
+.chore{
+	width: 100%;
+}
+
+.chore_status{
+	padding: 5px;
 }

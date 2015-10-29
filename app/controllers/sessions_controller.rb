@@ -13,7 +13,6 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id 
       session[:user_name] = user.name
-      flash[:success] = "Hello, #{session[:user_name]}!"
       redirect_to @@default_page
     else 
       flash[:errors] = ["Invalid password or email address"]
