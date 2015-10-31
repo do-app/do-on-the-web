@@ -16,7 +16,6 @@ class HouseholdsController < ApplicationController
     else
       household = Household.new(household_params)
       household.head_of_household = current_user
-      household.members << current_user
       if household.save
         flash[:success] = "Success! Household created!"
       else
