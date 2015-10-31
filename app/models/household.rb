@@ -14,8 +14,8 @@ class Household < ActiveRecord::Base
     where("name like ?", "%#{query}%") 
   end
 
-  def chores_per_member
-     chores.count / members.count
+  def max_chores_per_member
+    (chores.count / members.count.to_f).ceil
   end
 
   def assigned_chores
