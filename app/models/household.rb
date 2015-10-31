@@ -29,11 +29,11 @@ class Household < ActiveRecord::Base
     chores - assigned_chores
   end
 
-  def assign_chores 
+  def assign_remaining_chores 
     if unassigned_chores
       unassigned_chores.each do |chore|
         u = members.sample
-        while u.chores.count >= chores_per_member do 
+        while u.chores.count >= max_chores_per_member do 
           u = members.sample
         end 
         u.chores << chore
