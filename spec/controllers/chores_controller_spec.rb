@@ -5,7 +5,6 @@ describe ChoresController do
     @test_member = create(:user)
     @test_non_member = create(:user)
     @test_household = create(:household, head_of_household: @test_member)
-    @test_household.members << @test_member
     @test_chore = create(:chore, household: @test_household)
   end
 
