@@ -1,5 +1,7 @@
 class Household < ActiveRecord::Base
   include AssignmentPeriod
+  before_save :add_head_of_household_to_members
+
   has_many :members, class_name: 'User'
   has_many :chores
   belongs_to :head_of_household, class_name: 'User',
@@ -7,7 +9,6 @@ class Household < ActiveRecord::Base
 
   validates :name, presence: true
   validates :head_of_household, presence: true
-
 
   def self.search(query)
     where("name like ?", "%#{query}%") 
@@ -39,6 +40,11 @@ class Household < ActiveRecord::Base
         u.save
       end
     end
+  end
+
+  private
+  def add_head_of_household_to_members
+    members << head_of_household
   end
 
 end
