@@ -4,8 +4,8 @@
    <nav>
 
    <div> Welcome <%= session[:user_name] %>! </div>
-   <div> <%= link_to "Home", "/home/index"  %> </div>
-   <div> <%= link_to "Household", "/households/#{current_user.household_id}" %> </div>
+   <div> <%= link_to "Your Chores", "/home/index"  %> </div>
+   <div> <%= link_to "Your Household", "/households/#{current_user.household_id}" %> </div>
    <div> <%= link_to "Your Account", "" %> </div>
    <div id=logout > <%= link_to "Log Out", session_path(session[:user_id]), method: :delete %> </div>
     
@@ -13,7 +13,7 @@
   
    <% if !current_user.household %>
    </br>
-   <h1 align=center>You're not currently a member of a household!</h1>
+   <h1 align=center>     You're not currently a member of a household!</h1>
    </br>
    <% end %>
 	

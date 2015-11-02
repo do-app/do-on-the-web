@@ -22,7 +22,6 @@ class SessionsController < ApplicationController
 
   def destroy
     if session.delete(:user_id)
-      flash[:notice] = "Goodbye!"
       redirect_to :root
     else
       flash[:error] = "Something went wrong with your logout"

@@ -1,11 +1,18 @@
-<h3>Results</h3>
+<div class=household-search>
+<%= form_tag search_households_path, method: :get do %>
+  <%= text_field_tag :search, nil, placeholder: 'Household' %>
+  <%= submit_tag 'Search' %>
+<% end %>
+</div>
 
-<ul class="results">
-  <% if @households %>
+<h2>Results</h2>
+
+<table class="results">
+  <% if !@households.empty? %>
     <% @households.each do |household| %>
       <%= render partial: 'households/listing', locals: {household: household} %>
     <% end %>
   <% else %>
     <p class="no-results"><em>No households match your search!</em></p>
   <% end %>
-</ul>
+</table>

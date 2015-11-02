@@ -3,6 +3,7 @@ class HouseholdsController < ApplicationController
   before_action :authenticate
 
   def index
+    @household = Household.new
   end
 
   def new
