@@ -29,10 +29,7 @@ class HouseholdsController < ApplicationController
 
   def show
     @household = Household.find_by(id: params[:id])
-    unless @household
-      flash[:error] = "Household could not be found"
-      redirect_to root_path and return
-    end
+    redirect_to root_path and return unless household_exists? @household
     unless current_user.household == @household
       flash[:error] = "You must be a member of this household to view this page"
       redirect_to current_user
@@ -41,41 +38,28 @@ class HouseholdsController < ApplicationController
 
   def edit
     @household = Household.find_by(id: params[:id])
-    unless @household
-      flash[:error] = "Household could not be found"
-      redirect_to root_path and return
-    end
-    unless current_user == @household.head_of_household
-      flash[:error] = "You must be the head of household to make changes."
-      redirect_to current_user
-    end
+    redirect_to root_path and return unless household_exists? @household
+    validate_current_user_is_head_of_household (@household)
   end
 
   def update
     household = Household.find_by(id: params[:id])
-    unless household
-      flash[:error] = "Household could not be found"
-      redirect_to root_path and return
-    end
-    if current_user == household.head_of_household
+    redirect_to root_path and return unless household_exists? household
+    if validate_current_user_is_head_of_household (household)
       household.update(household_params)
       if household.save
         flash[:success] = "Household updated!"
+        redirect_to household
       else
         flash[:errors] = household.errors.full_messages
+        redirect_to household
       end
-    else
-      flash[:error] = "You must be the head of household to make changes."
     end
-    redirect_to household
   end
 
   def join
     household = Household.find_by(id: params[:id])
-    unless household
-      flash[:error] = "Household could not be found"
-      redirect_to root_path and return
-    end
+    redirect_to root_path and return unless household_exists? household
     if current_user.household
       flash[:error] = "You may only join one household at a time."
       redirect_to current_user.household
@@ -93,10 +77,7 @@ class HouseholdsController < ApplicationController
 
   def leave
     household = Household.find_by(id: params[:id])
-    unless household
-      flash[:error] = "Household could not be found"
-      redirect_to root_path and return
-    end
+    redirect_to root_path and return unless household_exists? household
     unless current_user.household == household
       flash[:error] = "You are not a member of this household"
       redirect_to household
@@ -120,14 +101,8 @@ class HouseholdsController < ApplicationController
 
   def destroy
     household = Household.find_by(id: params[:id])
-    unless household
-      flash[:error] = "Household could not be found"
-      redirect_to root_path and return
-    end
-    if current_user != household.head_of_household
-      flash[:error] = "You must be the head of household to make changes."
-      redirect_to household
-    else
+    redirect_to root_path and return unless household_exists? household
+    if validate_current_user_is_head_of_household (household)
       if household.destroy
         flash[:success] = "Your household was deleted"
       else
@@ -140,5 +115,23 @@ class HouseholdsController < ApplicationController
   private
   def household_params
     params.require(:household).permit(:name)
+  end
+
+  def household_exists? (household)
+    if household
+      true
+    else
+      flash[:error] = "Household could not be found"
+      false
+    end
+  end
+
+  def validate_current_user_is_head_of_household (household)
+    if current_user != household.head_of_household
+      flash[:error] = "You must be the head of household to make changes."
+      redirect_to current_user and return
+    else
+      true
+    end
   end
 end

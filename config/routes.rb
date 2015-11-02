@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index]
   resources :users , except: [:index]
   resources :households do 
-    resources :chores, :unregistered
+    resources :chores, except: [:index, :show] do 
+      put 'assign', on: :member
+    end
     put 'join', on: :member
     put 'leave', on: :member
     get 'search', on: :collection
