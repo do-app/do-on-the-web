@@ -1,6 +1,5 @@
-
 <?php
-header('Contnt-type: application/json');
+
    $dbhost = 'localhost';
    $dbuser = 'root';
    $dbpass = 'dbdoapp2015';
@@ -14,11 +13,11 @@ header('Contnt-type: application/json');
    }
 
    echo 'Connected successfully';
-
-
-   // This SQL statement selects email, password from users table
  
-$sql = "SELECT email, password FROM users";
+
+   // This SQL statement selects ALL from the table 'Locations'
+$sql = "SELECT name FROM chores WHERE household_id=2";
+ 
 
 // Check if there are results
 if ($result = mysqli_query($conn,$sql))
@@ -49,15 +48,4 @@ else
 }
 
    mysqli_close($conn);
-
-
-//original for program
-
-if($_POST) {
-    if($_POST['username'] == 'pam' && $_POST['password'] == 'jaworski') {
-    echo '{"success":1}';
- } else {
-    echo '{"success":0,"error_message":"Username and/or password is invalid."}';
-}
-}else {    echo '{"success":0,"error_message":"Username and/or password is invalid."}';}
 ?>

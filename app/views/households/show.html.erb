@@ -1,0 +1,30 @@
+<h1><%= @household.name %></h1>
+
+<% unless current_user.household %>
+  <%= button_to "Join Household", join_household_path(@household), method: :put %>
+<% end %>
+
+<% if current_user.household == @household %>
+  <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
+<% end %>
+
+<% if @household.members %>
+ <div id="members_list" >
+ <h3>Members</h3>
+  <ul class="members">
+    <% @household.members.each do |member| %>
+      <li><%= link_to member.name, user_path(member) %></li>
+
+    <% end %>
+  </ul>
+ </div>
+<% end %>
+
+<%= render partial: "chores/chores", locals: { chores: @household.chores } %>
+
+
+<div class="leave">
+<% if current_user.household == @household %>
+  <%= button_to "Leave Household", leave_household_path(@household), method: :put %>
+<% end %>
+</div>

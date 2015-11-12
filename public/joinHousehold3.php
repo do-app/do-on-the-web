@@ -27,19 +27,24 @@ if($_POST)
         $result = mysqli_query($conn,$query);
 
 //	if (!$result = mysqli_query($conn,$query))
-        if (mysqli_num_rows($result)>0) //join existing household
+        if (mysqli_num_rows($result)==0) //household doesnt exist yet
 	{		
-		echo '{"success":0,"error_message":"Household already exists"}';
+		echo '{"success":0,"error_message":"Household doesnt exist"}';
 	}
-	else //create new household 
+	else //join household
 	{ 
 		
 //	$query2="INSERT INTO users ('email','name','household_id','password') values ('{$_POST['username']}','{$_POST['firstname']}','3','{$_POST['password']}')";
 
-	 $query2="INSERT INTO households (name) VALUES ('".$households_name."')"; 	
-	$result2 = mysqli_query($conn,$query2);
-	//$query3="SELECT * FROM households WHERE name='{$_POST['household']}'";
-	//$result3 = mysqli_query($conn,$query3);
+
+	//	echo '{"success":1}';
+
+	$query3="SELECT id FROM households WHERE name='{$_POST['household']}'";
+	$result3 = mysqli_query($conn,$query3);
+	$idInfo=mysqli_fetch_row($result3);
+	$idResult=$idInfo[0];
+	$query4="UPDATE users SET household_id='$idResult' WHERE email='{$_POST['username']}'";
+	$result4=mysqli_query($conn,$query4);
 	//$query4="UPDATE users SET household_id = '".$query3."'";
 	//	echo '{"success":1}';
 	}

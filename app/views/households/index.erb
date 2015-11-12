@@ -1,7 +1,24 @@
-<h1>Find your household</h1>
 
+
+<h2>If you've been invited to join a household, search for its name.</h2>
+
+<div class=household-search>
 <%= form_tag search_households_path, method: :get do %>
-  <%= label_tag "Find your household by name"%>
-  <%= text_field_tag :search, nil, placeholder: 'name' %>
-  <%= submit_tag 'Find' %>
+  <%= text_field_tag :search, nil, placeholder: 'Household' %>
+  <%= submit_tag 'Search' %>
 <% end %>
+</div>
+
+</br></br>
+
+<h2>Or you can start your own! Think of a name and create one now!</h2>
+
+<div  class = household-search>
+  <%= render partial: "households/form", locals: { household: @household } %>
+</div>
+
+
+
+
+
+
