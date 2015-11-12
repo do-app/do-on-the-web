@@ -42,6 +42,11 @@ end
   household.save!
 end
 
+User.all.each do |u|
+  u.household = Household.all.sample
+  u.save!
+end
+
 CAPSTONE.each do |classmate|
   c = User.new(name: classmate,
                 email: "#{classmate.downcase}@#{classmate.downcase}.com")
@@ -65,7 +70,7 @@ CAPSTONE.each do |classmate|
   c = User.find_by(name: classmate)
   capstone_house.members << c
 end
-
+capstone_house.save!
 
 NUM_HOUSEHOLDS = Household.count
 
