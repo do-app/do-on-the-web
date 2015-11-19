@@ -4,12 +4,20 @@ class MessagesController < ApplicationController
 	
 	def create
 		
-		@message = Message.new( :body=>params[:message][:body], 
-										:user_id => current_user, 
-										:household_id => current_user.household )	
+		@chore_name = params[:message][:body]
+		
+		@text = current_user.name + " claims to have completed the chore '" + @chore_name + "'. Did they?"
+		
+	
+		
+		@message = Message.new( :body => @text)
+		@message.user_id = current_user.id
+		@message.household_id = current_user.household.id
+		
 		@message.save
 		
-		render plain: params[:article].inspect
+		
+		redirect_to "/home/index"
 		
 	end
 	
