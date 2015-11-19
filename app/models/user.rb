@@ -5,8 +5,10 @@ class User < ActiveRecord::Base
   belongs_to :household, foreign_key: 'household_id'
   has_many :events
   has_many :user_chores
+  has_many :messages
   has_many :chores, through: :user_chores, source: :chore
   has_many :households_is_head_of, class_name: 'Household', foreign_key: 'head_of_household_id'
+
 
   validates :name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true, confirmation: true
