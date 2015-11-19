@@ -1,1 +1,3 @@
-Edit Chore
+<h3>Edit <%= @chore.name%></h3>
+
+<%= render partial: "chores/form", locals: { household: @household, chore: @chore } %>

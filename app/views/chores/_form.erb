@@ -1,1 +1,23 @@
-Chores Form
+<%= form_for [household, chore] do |f| %>
+<div class="name">
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+
+<div class="points">
+  <%= f.label :points %>
+  <%= f.text_field :points %>
+</div>
+
+<div class="length">
+  <%= f.label :length_of_time %>
+  <%= f.text_field :length_of_time %>
+</div>
+
+<div class="times-per-week">
+  <%= f.label :times_per_week %>
+  <%= f.text_field :times_per_week %>
+</div>
+
+  <%= f.submit :Submit %> 
+<% end %>
