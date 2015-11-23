@@ -12,9 +12,13 @@
    </nav>
   
    <% if !current_user.household %>
-   </br>
-   <h1 align=center>     You're not currently a member of a household!</h1>
-   </br>
+   	</br>
+   	<h1 align=center>     You're not currently a member of a household!</h1>
+   	</br>
+   <% else %>
+   	<% current_user.household.messages.each do |m| %>
+   		<h3><%= m.body %></h3>
+   	<% end %>
    <% end %>
 	
 	
