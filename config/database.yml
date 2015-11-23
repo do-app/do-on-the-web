@@ -13,8 +13,8 @@ default: &default
 development:
   <<: *default
   database: mydatabase
-  username: capstone
-  password: capstone
+  username: root
+  password: ''
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -23,12 +23,3 @@ test:
   <<: *default
   database: do-app_test
   username: root
-  password: dbdoapp2015
-
-production:
-  <<: *default
-  host: localhost 
-  database: mydatabase
-  username: capstone
-  password: capstone
-
