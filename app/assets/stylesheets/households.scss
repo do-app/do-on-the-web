@@ -1,0 +1,36 @@
+#members_list{
+  background: lightgrey;
+  width: 15%;
+  padding: 10px 0;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+}
+
+.leave{
+  display:block;
+  clear: both;
+  float: right;
+  margin: 20px 20px;
+}
+
+.results tr td{
+  font-size: 25px;
+  padding: 5px;
+  font-family: Roboto;
+  font-weight: bold;
+}
+
+
+.household-search > form input {
+  height: 32px;
+  font-size: 20px;
+}
+
+#search{
+  height: 28px;
+}

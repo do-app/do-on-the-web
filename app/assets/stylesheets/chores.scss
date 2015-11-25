@@ -1,0 +1,39 @@
+
+.chores-list{
+  background-color: #66CD00;
+  width: 80%;
+  display: inline;
+  text-align: center;
+  float: right;
+  margin: 0 2%;
+  border-radius: 10px;
+
+
+
+  .chore{
+    width: 100%;
+  }
+
+  .chore_status{
+    padding: 5px;
+  }
+
+}
+
+#chores_list > table, #chores_list > table  th, #chores_list > table  td {
+  border: 1px solid black;
+  margin: 1%; 
+  background-color: lightgrey;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#chores_list > table th {
+  padding: 10px;
+  border-radius: 0px;
+}
+
+#chores_list > table td{
+  padding: 10px;
+  border-radius: 0px;
+}
