@@ -1,11 +1,11 @@
 class HomeController < ApplicationController
   def index
-	if !session[:user_id]
-		redirect_to "/sessions/new"
-	else
-		if !current_user.household
-			redirect_to "/households"
-		end
-        end
+  	unless is_authenticated?
+  		redirect_to new_session_path
+  	else
+  		unless current_user.household
+  			redirect_to households_path
+  		end
+    end
   end
 end
