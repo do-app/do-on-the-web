@@ -1,38 +1,11 @@
 <h2 style="margin-left:15px">You have completed your chores for the week!</h2>
 
-<div id=points_indicator > 
- 
- <h2>Your Points</h2>
-       <h1>76</h1>	   
+<div id="points_indicator" > 
+  <h2>Your Points</h2>
+  <h1><%= current_user.points %></h1>	   
 </div>
 
-
-<div id=chores_list>
+<div id="chores_list">
  <h2>Your Chores</h2>
-   <table>
-     <tr>
-		<th class=chore> Chore </th>
-		<th class=chore_points> Points </th>
-		<th class=chore_user> Assigned </th>
-		<th class=chore_status> Completed </th>
-     </tr>
-     <tr>
-		<td class=chore> Wash the dishes </td>
-		<td class=chore_points> 10 </td>
-		<td class=chore_user> <%= current_user.name %>  </td>
-		
-		
-		<td class=chore_status> 
-		
-			<%= form_for :message, url: messages_path do |f| %>
-				<%= f.hidden_field :body, :value => "hhhhhh" %>
-				<%= f.submit "X" %>
-			<% end %>
-		</td>
-     
-     
-     </tr>
-   </table>
+  <%= render partial: "chores/chores", locals: { chores: current_user.chores } %>
 </div>
-
-
