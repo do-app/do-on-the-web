@@ -5,7 +5,7 @@
   <h1><%= current_user.points %></h1>	   
 </div>
 
-<div id="chores_list">
+<div class="chores-list">
  <h2>Your Chores</h2>
   <%= render partial: "chores/chores", locals: { chores: current_user.chores } %>
 </div>
