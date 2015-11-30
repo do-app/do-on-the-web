@@ -6,17 +6,17 @@
    $dbname = 'mydb';
    $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname );
 
-
+/*
    if(! $conn )
    {
       die('Could not connect: ' . mysql_error());
    }
 
-//   echo 'Connected successfully';
- 
+   echo 'Connected successfully';
+*/ 
 
    // This SQL statement selects ALL from the table 'Locations'
-$sql = "SELECT name FROM chores WHERE household_id=2";
+$sql = "SELECT name, points from chores where household_id=2";
  
 
 // Check if there are results

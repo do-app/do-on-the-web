@@ -6,32 +6,39 @@
        <h1>76</h1>	   
 </div>
 
-
 <div id=chores_list>
  <h2>Your Chores</h2>
    <table>
      <tr>
 		<th class=chore> Chore </th>
 		<th class=chore_points> Points </th>
-		<th class=chore_user> Assigned </th>
+		
 		<th class=chore_status> Completed </th>
      </tr>
+	 
+	 <% current_user.household.chores.each do |chore| %>
      <tr>
-		<td class=chore> Wash the dishes </td>
-		<td class=chore_points> 10 </td>
-		<td class=chore_user> <%= current_user.name %>  </td>
-		
-		
-		<td class=chore_status> 
-		
-			<%= form_for :message, url: messages_path do |f| %>
-				<%= f.hidden_field :body, :value => "hhhhhh" %>
-				<%= f.submit "X" %>
+			<td class=chore> <%= chore.name %> </td>
+			<td class=chore_points> <%= chore.points %> </td>
+			
+			<td class=chore_status> 
+			<% if chore.status == "complete" %>
+				<img src="/images/check.svg" >
+			<% elsif chore.status == "waiting" %>
+				<img src="/images/circle2.svg">
+			<% elsif chore.status == "incomplete" %>
+				<%= form_for :message, url: messages_path do |f| %>
+					<%= f.hidden_field :body, :value => chore.name %>
+					<%= f.hidden_field :chore_id, :value => chore.id %>
+					<%= f.submit "", :type => :image, :src => "/images/x_mark.png" %>
+				<% end %>
 			<% end %>
-		</td>
-     
-     
+			</td>
      </tr>
+	 <% end %>
+	 
+	<caption> Chores with a checkmark have been completed, ones with a circle are awaiting verification, and chores with Xs are incomplete.
+	Clicking on an X will send out a request for your chore to be verified.
    </table>
 </div>
 

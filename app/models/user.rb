@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :user_chores
   has_many :messages
-  has_many :chores, through: :user_chores, source: :chore
+  #has_many :chores, through: :user_chores, source: :chore
+  has_many :chores
   has_many :households_is_head_of, class_name: 'Household', foreign_key: 'head_of_household_id'
 
 

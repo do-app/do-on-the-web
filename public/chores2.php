@@ -13,25 +13,34 @@
    }
 
 //   echo 'Connected successfully';
- 
 
-   // This SQL statement selects ALL from the table 'Locations'
-$sql = "SELECT name FROM chores WHERE household_id=2";
- 
+if($_POST) 
+{ 
+	$email = $_POST['useremail'];
 
-// Check if there are results
-if ($result = mysqli_query($conn,$sql))
-//if ($result = $conn->query($sql)) 
+	$query="SELECT household_id FROM users WHERE email='{$_POST['useremail']}'";
+        $result = mysqli_query($conn,$query);
+	$house_id=mysqli_fetch_row($result);
+	$house_id_result=$house_id[0];
+
+	$query3="SELECT name FROM chores  WHERE household_id='$house_id_result';
+	$result3 = mysqli_query($conn,$query3);
+	
+}
+
+else
 {
-	//echo 'Connected to user results successfully';
-  
+	echo '{"success":0,"error_message":"if $_Post failing"}';
+}
+
+
 	// If so, then create a results array and a temporary one
 	// to hold the data
 	$resultArray = array();
 	$tempArray = array();
  
 	// Loop through each row in the result set
-	while($row = $result->fetch_object())
+	while($row = $result3->fetch_object())
 	{
 		// Add each row into our results array
 		$tempArray = $row;
@@ -42,10 +51,6 @@ if ($result = mysqli_query($conn,$sql))
 	echo json_encode($resultArray);
 }
 
-else
-{
-	echo 'did not connect to user results successfully';
-}
 
    mysqli_close($conn);
 ?>

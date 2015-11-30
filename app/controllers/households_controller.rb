@@ -84,10 +84,10 @@ class HouseholdsController < ApplicationController
       user = current_user
       user.household = nil
       if user.save
-        redirect_to user
+        redirect_to "/home/index"
       else
         flash[:errors] = user.errors.full_messages
-        redirect_to household
+        #redirect_to household
       end
     end
   end

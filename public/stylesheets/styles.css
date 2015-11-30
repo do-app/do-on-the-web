@@ -13,6 +13,10 @@ a:visited{
 	color: inherit;
 }
 
+a:hover{
+	background-color: transparent;
+}
+
 form input[type=submit]{
 	cursor: pointer;
 }
@@ -48,6 +52,12 @@ nav > div >a:link{
 nav > div > a:visited{
 	color: white;
 }
+
+h3 > img, h3 > a > img {
+	height: 25px;
+	width: auto;
+}
+
 
 #logout{
 	float: right;
@@ -86,7 +96,7 @@ nav > div > a:visited{
 #chores_list{
 	background-color: #66CD00;
 	width: 80%;
-	height: 300px;
+	
 	display: inline;
 	text-align: center;
 	float: right;
@@ -94,12 +104,17 @@ nav > div > a:visited{
 	border-radius: 10px;
 }
 
+
 #chores_list > table, #chores_list > table  th, #chores_list > table  td {
 	border: 1px solid black;
 	margin: 1%; 
-	background-color: lightgrey;
+	background-color: white;
 	padding: 10px;
 	border-radius: 10px;
+}
+
+#chores_list > table{
+	background-color: lightgrey;
 }
 
 #chores_list > table th {
@@ -111,6 +126,17 @@ nav > div > a:visited{
 	padding: 10px;
 	border-radius: 0px;
 }
+
+#chores_list > table td img{
+	width: 50%;
+	height: auto
+}
+
+#chores_list > table td form input[type=image]{
+	width: 50%;
+	height: auto
+}
+
 .chore{
 	width: 100%;
 }
@@ -119,7 +145,12 @@ nav > div > a:visited{
 	padding: 5px;
 }
 
-
+#chores_list > table >caption{
+	margin: 5px 5px 5px 5px;
+	background-color: ;
+	text-align: left;
+	caption-side: top;
+}
 
 #points_indicator{
 	text-align: center;

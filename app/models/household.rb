@@ -1,5 +1,5 @@
 class Household < ActiveRecord::Base
-  include AssignmentPeriod
+ # include AssignmentPeriod
   before_save :add_head_of_household_to_members
 
   has_many :members, class_name: 'User'

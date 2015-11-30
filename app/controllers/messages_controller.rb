@@ -13,11 +13,11 @@ class MessagesController < ApplicationController
 		@message = Message.new( :body => @text)
 		@message.user_id = current_user.id
 		@message.household_id = current_user.household.id
-		
+		@message.chore_id = params[:message][:chore_id]
 		@message.save
 		
 		
-		redirect_to "/home/index"
+		redirect_to(:back)
 		
 	end
 	

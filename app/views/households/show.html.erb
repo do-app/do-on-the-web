@@ -4,9 +4,7 @@
   <%= button_to "Join Household", join_household_path(@household), method: :put %>
 <% end %>
 
-<% if current_user.household == @household %>
-  <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
-<% end %>
+
 
 <% if @household.members %>
  <div id="members_list" >
@@ -20,8 +18,44 @@
  </div>
 <% end %>
 
-<%= render partial: "chores/chores", locals: { chores: @household.chores } %>
+<!-- <%= render partial: "chores/chores", locals: { chores: @household.chores } %> -->
 
+
+
+<div id=chores_list>
+ <h2>Your Chores</h2>
+   <table>
+     <tr>
+		<th class=chore> Chore </th>
+		<th class=chore_points> Points </th>
+		<th class=chore_user> Assigned </th>
+		<th class=chore_status> Completed </th>
+     </tr>
+     <tr>
+		<% @household.chores.each do |chore| %>
+			<td class=chore> <%= chore.name %> </td>
+			<td class=chore_points> <%= chore.points %> </td>
+			<td class=chore_user> <%= User.all.find_by( chore.user_id ).name %>  </td>
+			<td class=chore_status> 
+			
+			<% if chore.status == "complete" %>
+				<img src="/images/check.svg" >
+			<% elsif chore.status == "incomplete" %>
+				<img src="/images/x_mark.png">
+			<% elsif chore.status == "waiting" %>
+				<img src="/images/circle2.svg">
+			<% else %>
+				<img src="/images/line.png">
+			<% end %>
+			</td>
+     </tr>
+	 <% end %>
+
+	</table>
+
+<% if current_user.household == @household %>
+  <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
+<% end %>
 
 <div class="leave">
 <% if current_user.household == @household %>

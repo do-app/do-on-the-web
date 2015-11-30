@@ -2,6 +2,15 @@ class ChoresController < ApplicationController
 
   before_action :authenticate
 
+  def verify
+    @chore = Chore.find_by(id: params[:chore_id])
+	@chore.status = "complete"
+	@chore.save
+	redirect_to(:back)
+  end
+  
+  #helper_method :verify
+  
   def new
     @household = Household.find_by(id: params[:household_id])
     if validate_current_user_belongs_to_household (@household)
@@ -13,6 +22,8 @@ class ChoresController < ApplicationController
     household = Household.find_by(id: params[:household_id])
     if validate_current_user_belongs_to_household (household)
       chore = Chore.new(chore_params)
+	  chore.length_of_time = 0
+	  chore.times_per_week = 0
       household.chores << chore
       if household.save
         flash[:success] = "Success! Chore created!"
@@ -76,12 +87,15 @@ class ChoresController < ApplicationController
     end
   end
 
+  
+  
   private
   def chore_params
     params.require(:chore).permit(:name,
                                   :points,
                                   :length_of_time,
                                   :times_per_week)
+								  
   end
 
   def chore_belongs_to_household? (chore, household)
