@@ -51,7 +51,7 @@ class ChoresController < ApplicationController
     chore = Chore.find_by(id: params[:id])
     redirect_to household and return unless chore_belongs_to_household? chore, household
     if validate_current_user_belongs_to_household (household)
-      if current_user.chores << chore
+      if current_user.assigned_chores << chore
         flash[:success] = "#{chore.name} has been assigned to you."
         redirect_to household
       else 

@@ -2,13 +2,14 @@ body {
   background-color: #fff;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
+  margin: 0 10px;
+  padding: 0;
 }
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
   line-height: 18px;
 }
 
@@ -18,8 +19,13 @@ pre {
   font-size: 11px;
 }
 
+form input[type=submit]{
+  cursor: pointer;
+}
+
 a {
   color: #000;
+  text-decoration: none;
 
   &:visited {
     color: #666;
@@ -28,6 +34,47 @@ a {
   &:hover {
     color: #fff;
     background-color: #000;
+  }
+}
+
+nav { 
+  background-color: #66CD00;
+  height: 50px;
+  width: auto;
+  margin: 0 -10px;
+  padding: 5px 5px;
+  font-size: 20px;
+  &> div {
+    display: inline-block;
+    height: 100%;
+    line-height: 50px;
+    padding: 0px 10px;
+    color: white;
+    font-weight: bolder;
+  }
+  a { 
+    color: white;
+    &:visited { 
+      color: white;
+    }
+  }
+
+  #logout{
+    float: right;
+  }
+
+  #signup{
+    background-color: lightgrey;
+    width: 300px;
+    margin: auto;
+    padding: 50px 0px;
+  }
+
+  #login{
+    background-color: lightgrey;
+    width: 300px;
+    margin: auto;
+    padding: 60px 0px;
   }
 }
 

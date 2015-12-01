@@ -1,13 +1,36 @@
 <% if chores %>
   <ul class="chores">
+    <li class="headings">
+      <div class="name">Chore</div>
+      <div class="points">Points</div>
+      <div class="length-of-time">Length of Time</div>
+      <div class="times-per-week">Times Per Week</div>
+      <div class="actions">
+      </div>
+    </li>
     <% chores.each do |chore| %>
     <li class="chore">
-      <%= chore.name %>
-      <%= chore.points %>
-      <%= chore.length_of_time %>
-      <%= chore.times_per_week %>
-      <div class="edit">
-        <%= button_to "Edit", edit_household_chore_path(chore.household, chore), method: :get %>
+      <div class="name"><%= chore.name %></div>
+      <div class="points"><%= chore.points %></div>
+      <div class="length-of-time"><%= chore.length_of_time %></div>
+      <div class="times-per-week"><%= chore.times_per_week %></div>
+      <div class="actions">
+        <% if current_user == chore.household.head_of_household %>
+          <div class="edit">
+            <%= link_to "Edit", edit_household_chore_path(chore.household, chore) %>
+          </div>
+        <% end %>
+        <% if chore.household.unassigned_chores.include? chore %> 
+         <%= button_to "I'll do this chore", assign_household_chore_path(chore.household, chore), method: :put %>
+        <% end %>
+        <% if current_user.chores.include? chore %>
+        <div class="complete">
+          <%= form_for :message, url: messages_path do |f| %>
+            <%= f.hidden_field :body, :value => "hhhhhh" %>
+            <%= f.submit "X" %>
+          <% end %>
+        </div>
+        <% end %>
       </div>
     </li>
     <% end %>
