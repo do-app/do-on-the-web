@@ -20,6 +20,9 @@
             <%= link_to "Edit", edit_household_chore_path(chore.household, chore) %>
           </div>
         <% end %>
+        <% if chore.household.unassigned_chores.include? chore %> 
+         <%= button_to "I'll do this chore", assign_household_chore_path(chore.household, chore), method: :put %>
+        <% end %>
         <% if current_user.chores.include? chore %>
         <div class="complete">
           <%= form_for :message, url: messages_path do |f| %>
