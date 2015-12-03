@@ -6,6 +6,22 @@ class ChoresController < ApplicationController
     @chore = Chore.find_by(id: params[:chore_id])
 	@chore.status = "complete"
 	@chore.save
+	@chore.user.points = @chore.user.points + @chore.points
+	@chore.user.save
+	redirect_to(:back)
+  end
+  
+  def unverify
+	@chore = Chore.find_by( id: params[:chore_id])
+	@chore.status = "incomplete"
+    @chore.save
+	redirect_to(:back)
+  end
+  
+  def request_verification
+	@chore = Chore.find_by( id: params[:chore_id])
+	@chore.status = "waiting"
+	@chore.save
 	redirect_to(:back)
   end
   

@@ -111,6 +111,48 @@ class HouseholdsController < ApplicationController
     end
   end
 
+  
+  def assign_chores
+  
+	 #household = Household.find( params[:household_id] )
+	Household.all.each do |household|
+		
+		household.members.each do |user|
+			user.num_chores = 0
+			user.save
+		end
+		
+		num_users = household.members.count
+		index = 0
+		
+		@users = household.members.order("RAND()")
+		
+		household.chores.order("RAND()").each do |chore|
+			
+			#penalize users for incomplete chores
+			if( chore.status == "incomplete" )
+				chore.user.points = chore.user.points - ( chore.points * 2 )
+				if chore.user.points < 0
+					chore.user.points = 0
+				end
+				chore.user.save
+			end
+			
+			chore.status = "incomplete"
+			
+			chore.user = @users[index]
+			chore.save
+			index = index + 1
+			
+			if ( index == num_users )
+				index = 0
+			end
+			
+		end
+	end
+	redirect_to(:back)
+  end
+  
   private
   def household_params
     params.require(:household).permit(:name)

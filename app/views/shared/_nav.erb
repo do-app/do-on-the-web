@@ -13,28 +13,31 @@
   
    <% if !current_user.household %>
    	</br>
-   	<h1 align=center>     You're not currently a member of a household!</h1>
+   	<h1 align=center>  You're not currently a member of a household!</h1>
    	</br>
    <% else %>
-   	<% current_user.household.messages.each do |m| %>
-   		<% if m.user != current_user %>
-			<h3><%= m.body %> 
+   	<% current_user.household.chores.each do |m| %>
+   		<% if (m.user != current_user) and (m.status == "waiting") %>
+			<h3>
 			
-			<%= link_to image_tag("/images/check.svg"), household_chore_verify_path(current_user.household, m.chore_id), method: :patch %>
-				
 			
+			<%= m.user.name %> claims to have completed the chore '<%= m.name %>'. Did they? 
+			
+			<%= link_to image_tag("/images/check.svg"), household_chore_verify_path(current_user.household, m.id), method: :patch %>
 			
 			or 
 			
-			<img src="/images/x_mark.png"> </h3>
+			<%= link_to image_tag("/images/x_mark.png"), household_chore_unverify_path(current_user.household, m.id), method: :patch %>
+			
+			</h3>
 		<% end %>
    	<% end %>
    <% end %>
-	
-	
+
   <% else %>
 <!--    <%= link_to "Sign Up", new_user_path %> or <%= link_to "Log In", new_session_path %> -->
  
+	
   
   
   <% end %>

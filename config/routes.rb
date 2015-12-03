@@ -8,9 +8,12 @@ Rails.application.routes.draw do
   resources :users , except: [:index]
   resources :households do 
     resources :chores, except: [:index, :show] do 
-      put 'assign', on: :member
+      #put 'assign', on: :member
 	  patch 'verify'
+	  patch 'unverify'
+	  patch 'request_verification'
     end
+	patch 'assign_chores'
     put 'join', on: :member
     put 'leave', on: :member
     get 'search', on: :collection

@@ -35,7 +35,15 @@
 		<% @household.chores.each do |chore| %>
 			<td class=chore> <%= chore.name %> </td>
 			<td class=chore_points> <%= chore.points %> </td>
-			<td class=chore_user> <%= User.all.find_by( chore.user_id ).name %>  </td>
+			<td class=chore_user> 
+				<%= 
+				if( chore.user == nil )
+					"----" 
+				else
+					chore.user.name 
+				end %>
+			</td>
+			
 			<td class=chore_status> 
 			
 			<% if chore.status == "complete" %>

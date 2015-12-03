@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130015710) do
+ActiveRecord::Schema.define(version: 20151203013811) do
 
   create_table "chores", force: :cascade do |t|
     t.string   "name",           limit: 255, null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20151130015710) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.string   "password_digest", limit: 255
+    t.integer  "num_chores",      limit: 4
   end
 
   add_index "users", ["household_id"], name: "index_users_on_household_id", using: :btree

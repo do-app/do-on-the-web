@@ -1,9 +1,10 @@
-<h2 style="margin-left:15px">You have completed your chores for the week!</h2>
+
+</br></br></br>
 
 <div id=points_indicator > 
  
  <h2>Your Points</h2>
-       <h1>76</h1>	   
+       <h1><%= current_user.points %></h1>	   
 </div>
 
 <div id=chores_list>
@@ -17,24 +18,25 @@
      </tr>
 	 
 	 <% current_user.household.chores.each do |chore| %>
-     <tr>
-			<td class=chore> <%= chore.name %> </td>
-			<td class=chore_points> <%= chore.points %> </td>
-			
-			<td class=chore_status> 
-			<% if chore.status == "complete" %>
-				<img src="/images/check.svg" >
-			<% elsif chore.status == "waiting" %>
-				<img src="/images/circle2.svg">
-			<% elsif chore.status == "incomplete" %>
-				<%= form_for :message, url: messages_path do |f| %>
-					<%= f.hidden_field :body, :value => chore.name %>
-					<%= f.hidden_field :chore_id, :value => chore.id %>
-					<%= f.submit "", :type => :image, :src => "/images/x_mark.png" %>
+		<% if current_user == chore.user %>
+	 
+			<tr>
+				<td class=chore> <%= chore.name %> </td>
+				<td class=chore_points> <%= chore.points %> </td>
+				
+				<td class=chore_status> 
+				<% if chore.status == "complete" %>
+					<img src="/images/check.svg" >
+				<% elsif chore.status == "waiting" %>
+					<img src="/images/circle2.svg">
+				<% elsif chore.status == "incomplete" %>
+					
+					<%= link_to image_tag("/images/x_mark.png"), household_chore_request_verification_path(current_user.household, chore.id), method: :patch %>
+				
 				<% end %>
-			<% end %>
-			</td>
-     </tr>
+				</td>
+			</tr>
+		<% end %>
 	 <% end %>
 	 
 	<caption> Chores with a checkmark have been completed, ones with a circle are awaiting verification, and chores with Xs are incomplete.
@@ -42,4 +44,6 @@
    </table>
 </div>
 
+
+<%= link_to image_tag("/images/x_mark.png"), household_assign_chores_path(current_user.household_id ), method: :patch %>
 
