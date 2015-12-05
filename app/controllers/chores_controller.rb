@@ -1,4 +1,5 @@
 class ChoresController < ApplicationController
+  include AssignmentPeriod
 
   before_action :authenticate
 
@@ -59,6 +60,23 @@ class ChoresController < ApplicationController
         redirect_to household
       end
     end
+  end
+
+  def complete
+    assigned_chore = UserChore.where('created_at > ?', start_of_period).find_by(chore_id: params[:id], user_id: current_user.id)
+    user = current_user
+    if assigned_chore
+      assigned_chore.completed = true
+      user.points += assigned_chore.chore.points
+      if assigned_chore.save && user.save
+        flash[:success] = "You have completed '#{assigned_chore.chore.name}' for #{assigned_chore.chore.points}!"
+      else
+        flash[:errors] = user.errors.full_messages + assigned_chore.errors.full_messages
+      end
+    else
+      flash[:error] = "No chore could be found!"
+    end
+    redirect_to :back
   end
 
   def destroy 

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :households do 
     resources :chores, except: [:index, :show] do 
       put 'assign', on: :member
+      put 'complete', on: :member
     end
     put 'join', on: :member
     put 'leave', on: :member

@@ -24,12 +24,9 @@
         <% if chore.household.unassigned_chores.include? chore %> 
          <%= button_to "I'll do this chore", assign_household_chore_path(chore.household, chore), method: :put %>
         <% end %>
-        <% if current_user.chores.include? chore %>
+        <% if current_user.uncompleted_chores.include? chore %>
         <div class="complete">
-          <%= form_for :message, url: messages_path do |f| %>
-            <%= f.hidden_field :body, :value => "hhhhhh" %>
-            <%= f.submit "Complete This Chore!" %>
-          <% end %>
+          <%= button_to "Complete Chore", complete_household_chore_path(chore.household, chore), method: :put%>
         </div>
         <% end %>
       </div>
