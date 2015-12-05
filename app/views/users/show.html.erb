@@ -1,10 +1,10 @@
 <div class="left-sidebar">
-<%if @user.household %>
+<%if current_user == @user && @user.household %>
   <%= link_to "Visit your household", household_path(@user.household) %>
 <% end %>
 
 <% if current_user == @user %>
-  <h2>Your Account Details:</h2>
+  <h2>Your Account</h2>
   <div>
     <strong>Name:</strong>
     <%= @user.name %>
@@ -21,6 +21,10 @@
 </div>
 
 <div class="chores-list">
-<h2>Here are your chores</h2>
+<% if current_user == @user %>
+  <h2>Your chores for this week</h2>
+<% else %>
+  <h2><%= @user.name%>'s chores for this week</h2>
+<% end %>
 <%= render partial: "chores/chores", locals: { chores: @user.chores } %>
 </div>

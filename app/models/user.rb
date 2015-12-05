@@ -23,6 +23,12 @@ class User < ActiveRecord::Base
       .group('chores.id')
   end
 
+  def uncompleted_chores
+    assigned_chores.joins(:user_chores)
+      .where("users_chores.created_at >= ? AND users_chores.completed = false", start_of_period)
+      .group('chores.id')
+  end
+
   private
     def set_points
       self.points ||= 0
