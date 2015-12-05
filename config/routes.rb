@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     get 'results', on: :collection
   end
 
+  resources :rewards, except: [:index, :show] do 
+    put 'claim', on: :member
+  end
   resources :events
   resources :sessions, only: [:new, :create, :destroy]
   resources :messages
