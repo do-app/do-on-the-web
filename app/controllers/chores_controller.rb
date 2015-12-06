@@ -27,14 +27,14 @@ class ChoresController < ApplicationController
   def edit
     @household = Household.find_by(id: params[:household_id])
     @chore = Chore.find_by(id: params[:id])
-    redirect_to @household and return unless chore_belongs_to_household? @chore, @household
+    redirect_to @household and return unless belongs_to_household? @chore, @household
     validate_current_user_belongs_to_household (@household)
   end
 
   def update
     household = Household.find_by(id: params[:household_id])
     chore = Chore.find_by(id: params[:id])
-    redirect_to household and return unless chore_belongs_to_household? chore, household
+    redirect_to household and return unless belongs_to_household? chore, household
     if validate_current_user_belongs_to_household (household)
       chore.update(chore_params)
       if chore.save
@@ -50,7 +50,7 @@ class ChoresController < ApplicationController
   def assign
     household = Household.find_by(id: params[:household_id])
     chore = Chore.find_by(id: params[:id])
-    redirect_to household and return unless chore_belongs_to_household? chore, household
+    redirect_to household and return unless belongs_to_household? chore, household
     if validate_current_user_belongs_to_household (household)
       if current_user.assigned_chores << chore
         flash[:success] = "#{chore.name} has been assigned to you."
@@ -82,7 +82,7 @@ class ChoresController < ApplicationController
   def destroy 
     household = Household.find_by(id: params[:household_id])
     chore = Chore.find_by(id: params[:id])
-    redirect_to household and return unless chore_belongs_to_household? chore, household
+    redirect_to household and return unless belongs_to_household? chore, household
     if validate_current_user_belongs_to_household (household)
       if chore.destroy
         flash[:success] = "Your chore was deleted!"
@@ -100,23 +100,5 @@ class ChoresController < ApplicationController
                                   :points,
                                   :length_of_time,
                                   :times_per_week)
-  end
-
-  def chore_belongs_to_household? (chore, household)
-    if chore.household != household
-      flash[:error] = "Invalid chore"
-      false
-    else 
-      true
-    end
-  end
-
-  def validate_current_user_belongs_to_household (household)
-    if current_user.household != household
-      flash[:error] = "You must be a member of this household to edit this chore."
-      redirect_to (current_user.household ? current_user.household : households_path) and return
-    else
-      true
-    end
   end
 end
