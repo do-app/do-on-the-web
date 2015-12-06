@@ -38,4 +38,18 @@
   <div class="chores-list">
     <%= render partial: "chores/chores", locals: { chores: @user.chores } %>
   </div>
+
+  <h2>Available rewards:</h2>
+  <div class="rewards-list">
+    <%= render partial: "rewards/rewards", locals: { rewards: @user.household.rewards } %>
+  </div>
+
+  <% if current_user == @user %>
+    <h2>Rewards you've claimed</h2>
+  <% else %>
+    <h2>Rewards <%= @user.name%> has claimed</h2>
+  <% end %>
+  <div class="rewards-list">
+    <%= render partial: "rewards/rewards", locals: { rewards: @user.claimed_rewards, claimed_list: true} %>
+  </div>
 </div>
