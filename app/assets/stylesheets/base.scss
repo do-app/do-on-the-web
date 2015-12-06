@@ -118,3 +118,15 @@ div {
     list-style: square;
   }
 }
+
+.points-indicator{
+  width:100%;
+  text-align: center;
+  background-color: lightgrey;
+  height: 150px;
+  padding-top: 15px;
+  h1 {
+    font-size: 40px;
+  }
+
+}

@@ -1,4 +1,9 @@
 <div class="left-sidebar">
+<div class="points-indicator" > 
+  <h2>Points</h2>
+  <h1><%= @user.points %></h1>    
+</div>
+
 <%if current_user == @user && @user.household %>
   <%= link_to "Visit your household", household_path(@user.household) %>
 <% end %>
