@@ -9,8 +9,9 @@
     <% rewards.each do |reward| %>
     <li class="reward">
       <div class="name"><%= reward.name %>
-          <div class="edit">
-            <%= link_to "Edit", edit_household_reward_path(reward.household, reward) %>
+          <div class="edit-delete">
+            <%= link_to "Edit", edit_household_reward_path(reward.household, reward) %> | 
+            <%= link_to "Delete", household_reward_path(reward.household, reward), method: :delete %>
           </div>
       </div>
       <div class="points"><%= reward.points %></div>
