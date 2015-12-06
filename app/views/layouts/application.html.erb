@@ -9,15 +9,15 @@
 </head>
 <body>
 
-
-
 <%= render 'shared/nav' %>
 
 <% flash.each do |key, value| %>
   <%= content_tag :div, value, class: "flash #{key}" %>
 <% end %>
 
+<div class="content">
 <%= yield %>
+</div>
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 body {
   background-color: #fff;
   color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: 'Roboto', verdana, arial, helvetica, sans-serif;
   font-size: 14px;
   line-height: 18px;
   margin: 0 10px;
@@ -9,7 +9,7 @@ body {
 }
 
 p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: 'Roboto', arial, helvetica, sans-serif;
   line-height: 18px;
 }
 
@@ -129,4 +129,19 @@ div {
     font-size: 40px;
   }
 
+}
+
+.content {
+  width: 100%;
+}
+.left-sidebar { 
+  float:left;
+  width:15%;
+  padding:10px;
+  text-align: center;
+}
+.main-right { 
+  width: 80%;
+  padding:10px;
+  float: right;
 }

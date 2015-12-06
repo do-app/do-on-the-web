@@ -35,10 +35,12 @@
 </div>
 
 <div class="main-right">
+  <h2>Chores</h2>
   <div class="chores-list">
   <%= render partial: "chores/chores", locals: { chores: @household.chores } %>
   </div>
 
+  <h2>Rewards</h2>
   <div class="rewards-list">
   <%= render partial: "rewards/rewards", locals: { rewards: @household.rewards } %>
   </div>
