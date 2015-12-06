@@ -62,7 +62,6 @@ class RewardsController < ApplicationController
         else
           flash[:errors] = current_user.errors.full_messages
         end
-      end
       else 
         flash[:errors] = current_user.errors.full_messages
         redirect_to :back
