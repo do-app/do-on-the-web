@@ -1,10 +1,8 @@
 class SessionsController < ApplicationController
 
-  @@default_page = "/home/index"
-
   def new
     if logged_in?
-      redirect_to @@default_page
+      redirect_to current_user
     end   
   end
 
@@ -13,7 +11,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id 
       session[:user_name] = user.name
-      redirect_to @@default_page
+      redirect_to current_user
     else 
       flash[:errors] = ["Invalid password or email address"]
       redirect_to new_session_path

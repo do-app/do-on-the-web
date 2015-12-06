@@ -2,9 +2,9 @@
 
 <% if is_authenticated? %>
  <nav>
-   <div> <%= link_to "Your Chores", "/home/index"  %> </div>
-   <div> <%= link_to "Your Household", "/households/#{current_user.household_id}" %> </div>
-   <div> <%= link_to "Your Account", "" %> </div>
+   <div> <%= link_to "Your Chores", user_path(current_user)  %> </div>
+   <div> <%= link_to "Your Household", household_path(current_user.household) %> </div>
+   <div> <%= link_to "Your Account", edit_user_path(current_user) %> </div>
    <div id="logout"> <%= link_to "Log Out", session_path(session[:user_id]), method: :delete %> </div>
  </nav>
 

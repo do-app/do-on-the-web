@@ -1,9 +1,0 @@
-<div id="points_indicator" > 
-  <h2>Your Points</h2>
-  <h1><%= current_user.points %></h1>	   
-</div>
-
-<div class="chores-list">
- <h2>Your Chores</h2>
-  <%= render partial: "chores/chores", locals: { chores: current_user.chores } %>
-</div>
