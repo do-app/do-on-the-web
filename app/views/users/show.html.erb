@@ -10,7 +10,7 @@
     <h1><%= @user.points %></h1>    
   </div>
 
-  <%if current_user == @user && @user.household %>
+  <%if current_user == @user and @user.household %>
     <%= link_to "Visit your household", household_path(@user.household) %>
   <% end %>
 
@@ -30,26 +30,31 @@
   <% end %>
 </div>
 <div class="main-right">
-  <% if current_user == @user %>
-    <h2>Your chores for this week</h2>
-  <% else %>
-    <h2><%= @user.name%>'s chores for this week</h2>
-  <% end %>
-  <div class="chores-list">
-    <%= render partial: "chores/chores", locals: { chores: @user.chores } %>
-  </div>
+  <% if @user.household %>
+    <% if current_user == @user %>
+      <h2>Your chores for this week</h2>
+    <% else %>
+      <h2><%= @user.name%>'s chores for this week</h2>
+    <% end %>
+    <div class="chores-list">
+      <%= render partial: "chores/chores", locals: { chores: @user.chores } %>
+    </div>
 
-  <h2>Available rewards:</h2>
-  <div class="rewards-list">
-    <%= render partial: "rewards/rewards", locals: { rewards: @user.household.rewards } %>
-  </div>
+    <h2>Available rewards:</h2>
+    <div class="rewards-list">
+      <%= render partial: "rewards/rewards", locals: { rewards: @user.household.rewards } %>
+    </div>
 
-  <% if current_user == @user %>
-    <h2>Rewards you've claimed</h2>
+    <% if current_user == @user %>
+      <h2>Rewards you've claimed</h2>
+    <% else %>
+      <h2>Rewards <%= @user.name%> has claimed</h2>
+    <% end %>
+    <div class="rewards-list">
+      <%= render partial: "rewards/rewards", locals: { rewards: @user.claimed_rewards, claimed_list: true} %>
+    </div>
   <% else %>
-    <h2>Rewards <%= @user.name%> has claimed</h2>
+      <h2 align="center">You're not currently a member of a household!</h2>
+      <h3 align="center"><%=link_to "Find your household or create a new one!", households_path %></h3>
   <% end %>
-  <div class="rewards-list">
-    <%= render partial: "rewards/rewards", locals: { rewards: @user.claimed_rewards, claimed_list: true} %>
-  </div>
 </div>
