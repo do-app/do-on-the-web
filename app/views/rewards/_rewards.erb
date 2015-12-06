@@ -1,0 +1,33 @@
+<% if rewards %>
+  <ul class="rewards">
+    <li class="headings">
+      <div class="name">Reward</div>
+      <div class="points">Points</div>
+      <div class="actions">
+      </div>
+    </li>
+    <% rewards.each do |reward| %>
+    <li class="reward">
+      <div class="name"><%= reward.name %>
+          <div class="edit-delete">
+            <%= link_to "Edit", edit_household_reward_path(reward.household, reward) %> | 
+            <%= link_to "Delete", household_reward_path(reward.household, reward), method: :delete %>
+          </div>
+      </div>
+      <div class="points"><%= reward.points %></div>
+      <div class="actions">
+        <% claimed_list ||= false %>
+        <% if !claimed_list %>
+          <% if current_user.points >= reward.points %> 
+           <%= button_to "Claim this reward", claim_household_reward_path(reward.household, reward), method: :put %>
+           <% else %>
+            <em>Earn <%= points_until_reward(reward) %> more points!</em>
+          <% end %>
+        <% end %>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><em>There are no rewards!</em></p>
+<% end %>
