@@ -3,14 +3,10 @@
 <% if is_authenticated? %>
  <nav>
    <div> <%= link_to "Your Chores", user_path(current_user)  %> </div>
-   <div> <%= link_to "Your Household", household_path(current_user.household) %> </div>
+   <% if current_user.household %>
+    <div> <%= link_to "Your Household", household_path(current_user.household) %> </div>
+  <% end %>
    <div> <%= link_to "Your Account", edit_user_path(current_user) %> </div>
    <div id="logout"> <%= link_to "Log Out", session_path(session[:user_id]), method: :delete %> </div>
  </nav>
-
- 	<div>
-   <% if !current_user.household %>
-   	<h1 align='center'>You're not currently a member of a household!</h1>
-   <% end %>
- </div>
 <% end %>
