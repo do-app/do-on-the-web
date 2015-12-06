@@ -18,6 +18,8 @@ gem 'sidekiq'
 
 group :production do 
   gem 'unicorn'
+  gem 'rack-timeout'
+  gem 'rails_12factor'
 end
 
 group :development, :test do
