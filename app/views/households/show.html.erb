@@ -5,19 +5,23 @@
     <%= button_to "Join Household", join_household_path(@household), method: :put %>
   <% end %>
 
-  <div class="add-chore">
-  <% if current_user.household == @household %>
-    <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
-  <% end %>
-  </div>
+  <div class="add">
+    <% if current_user.household == @household %>
+      <div class="add-chore">
+        <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
+      </div>
 
+      <div class="add-reward">
+        <%= button_to "Add New Reward", new_household_reward_path(@household), method: :get %>
+      </div>
+    <% end %>
+  </div>
   <% if @household.members %>
    <div id="members_list" >
    <h3>Members</h3>
     <ul class="members">
       <% @household.members.each do |member| %>
         <li><%= link_to member.name, user_path(member) %></li>
-
       <% end %>
     </ul>
    </div>
@@ -30,6 +34,12 @@
   </div>
 </div>
 
-<div class="chores-list">
-<%= render partial: "chores/chores", locals: { chores: @household.chores } %>
+<div class="main-right">
+  <div class="chores-list">
+  <%= render partial: "chores/chores", locals: { chores: @household.chores } %>
+  </div>
+
+  <div class="rewards-list">
+  <%= render partial: "rewards/rewards", locals: { rewards: @household.rewards } %>
+  </div>
 </div>
