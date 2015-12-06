@@ -1,0 +1,13 @@
+<%= form_for [household, reward] do |f| %>
+<div class="name">
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+
+<div class="points">
+  <%= f.label :points %>
+  <%= f.text_field :points %>
+</div>
+
+  <%= f.submit :Submit %> 
+<% end %>
