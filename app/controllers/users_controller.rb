@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   def new
     #if already logged in, go to homepage
     if session[:user_id]
-     redirect_to "/home/index"
+     redirect_to current_user
     end
     @user = User.new
   end

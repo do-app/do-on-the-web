@@ -6,11 +6,6 @@
   <% end %>
 
   
-   
-
-    
-  
-  
   <% if @household.members %>
    <div id="members_list" >
     <table>
@@ -21,8 +16,6 @@
     </table>
    </div>
   <% end %>
-
- 
 
 
   
@@ -43,3 +36,4 @@
     <%= link_to "Leave Household", leave_household_path(@household), method: :put %>
   <% end %>
   </div>
+

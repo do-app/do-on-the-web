@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 20151205231244) do
     t.integer  "household_id", limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.integer  "chore_id",     limit: 4
   end
 
   create_table "rewards", force: :cascade do |t|

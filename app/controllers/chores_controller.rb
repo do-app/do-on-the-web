@@ -129,6 +129,6 @@ class ChoresController < ApplicationController
                                   :points,
                                   :length_of_time,
                                   :times_per_week)
-								  
+
   end
 end
