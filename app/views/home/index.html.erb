@@ -7,24 +7,23 @@
        <h1><%= current_user.points %></h1>	   
 </div>
 
-<div class=chores_list>
+<div class="chores_list">
  <h2>Your Chores</h2>
    <table>
      <tr>
-		<th class=chore> Chore </th>
-		<th class=chore_points> Points </th>
+		<th class="chore"> Chore </th>
+		<th class="chore_points"> Points </th>
 		
-		<th class=chore_status> Completed </th>
+		<th class="chore_status"> Completed </th>
      </tr>
 	 
 	 <% current_user.chores.each do |chore| %>
 		
-	 
 			<tr>
-				<td class=chore> <%= chore.name %> </td>
-				<td class=chore_points> <%= chore.points %> </td>
+				<td class="chore"> <%= chore.name %> </td>
+				<td class="chore_points"> <%= chore.points %> </td>
 				
-				<td class=chore_status> 
+				<td class="chore_status"> 
 				
 				
 				<% if current_user.uncompleted_chores.include? chore %>
