@@ -49,7 +49,7 @@ class RewardsController < ApplicationController
     household = Household.find_by(id: params[:household_id])
     reward = Reward.find_by(id: params[:id])
     redirect_to household and return unless belongs_to_household? reward, household
-    if current_user.points < rewards.points
+    if current_user.points < reward.points
       flash[:error] = "You don't have enough points to claim this reward"
       redirect_to :back
     end
