@@ -7,7 +7,7 @@
    <div> Welcome <%= session[:user_name] %>! </div>
    <div> <%= link_to "Your Chores", "/home/index"  %> </div>
    <div> <%= link_to "Your Household", "/households/#{current_user.household_id}" %> </div>
-   <div> <%= link_to "Your Account", "" %> </div>
+   <!-- <div> <%= link_to "Your Account", "" %> </div> -->
    <div id=logout > <%= link_to "Log Out", session_path(session[:user_id]), method: :delete %> </div>
     
    </nav>
@@ -24,11 +24,7 @@
 			
 			<%= m.user.name %> claims to have completed the chore '<%= m.name %>'. Did they? 
 			
-			<%= link_to image_tag("/images/check.svg"), household_chore_verify_path(current_user.household, m.id), method: :patch %>
 			
-			or 
-			
-			<%= link_to image_tag("/images/x_mark.png"), household_chore_unverify_path(current_user.household, m.id), method: :patch %>
 			
 			</h3>
 		<% end %>

@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 
   def new
     if logged_in?
-      redirect_to current_user
+      redirect_to "/home/index"
     end   
   end
 

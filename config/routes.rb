@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     get 'results', on: :collection
   end
   
-  '/home/index'
+  get "/home/index", as: "home"
   
   resources :events
   resources :sessions, only: [:new, :create, :destroy]

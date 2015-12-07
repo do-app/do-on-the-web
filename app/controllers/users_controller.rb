@@ -17,13 +17,14 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+	redirect_to "/home/index"
   end
 
   # GET /users/new
   def new
     #if already logged in, go to homepage
     if session[:user_id]
-     redirect_to current_user
+     redirect_to "/home/index"
     end
     @user = User.new
   end

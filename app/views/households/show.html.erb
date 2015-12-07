@@ -1,47 +1,45 @@
 <h1 id="housename"><%= @household.name %></h1>
 
-<div class="left-sidebar">
+
   <% unless current_user.household %>
     <%= button_to "Join Household", join_household_path(@household), method: :put %>
   <% end %>
 
-  <div class="add">
-    <% if current_user.household == @household %>
-      <div class="add-chore">
-        <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
-      </div>
+  
+   
 
-      <div class="add-reward">
-        <%= button_to "Add New Reward", new_household_reward_path(@household), method: :get %>
-      </div>
-    <% end %>
-  </div>
+    
+  
+  
   <% if @household.members %>
    <div id="members_list" >
-   <h3>Members</h3>
-    <ul class="members">
+    <table>
+	<tr><th>Member</th><th>Points</th></tr>
       <% @household.members.each do |member| %>
-        <li><%= link_to member.name, user_path(member) %></li>
+        <tr>  <td>  <%= link_to member.name, user_path(member) %>  </td> <td> <%= member.points%> </td> </tr>
       <% end %>
-    </ul>
+    </table>
    </div>
   <% end %>
 
-  <div class="leave">
+ 
+
+
+  
+  <div class="chores_list">
+  <h2>House Chores</h2>
+  <%= render partial: "chores/chores", locals: { chores: current_user.household.chores } %>
+  </div>
+
+  <br>
+  <div class="rewards_list">
+  <h2>House Rewards</h2>
+  <%= render partial: "rewards/rewards", locals: { rewards: @household.rewards } %>
+  </div>
+
+  
+   <div class="leave">
   <% if current_user.household == @household %>
     <%= link_to "Leave Household", leave_household_path(@household), method: :put %>
   <% end %>
   </div>
-</div>
-
-<div class="main-right">
-  <h2>Chores</h2>
-  <div class="chores-list">
-  <%= render partial: "chores/chores", locals: { chores: @household.chores } %>
-  </div>
-
-  <h2>Rewards</h2>
-  <div class="rewards-list">
-  <%= render partial: "rewards/rewards", locals: { rewards: @household.rewards } %>
-  </div>
-</div>

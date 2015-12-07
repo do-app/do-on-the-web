@@ -1,10 +1,11 @@
 class Household < ActiveRecord::Base
- # include AssignmentPeriod
+  include AssignmentPeriod
   before_save :add_head_of_household_to_members
 
   has_many :members, class_name: 'User'
   has_many :messages, class_name: 'Message'
   has_many :chores
+  has_many :user_chores
   has_many :rewards
   belongs_to :head_of_household, class_name: 'User',
                                   foreign_key: 'head_of_household_id'

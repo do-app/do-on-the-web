@@ -7,7 +7,7 @@
        <h1><%= current_user.points %></h1>	   
 </div>
 
-<div id=chores_list>
+<div class=chores_list>
  <h2>Your Chores</h2>
    <table>
      <tr>
@@ -31,7 +31,7 @@
 					<img src="/images/circle2.svg">
 				<% elsif chore.status == "incomplete" %>
 					
-					<%= link_to image_tag("/images/x_mark.png"), household_chore_request_verification_path(current_user.household, chore.id), method: :patch %>
+					
 				
 				<% end %>
 				</td>

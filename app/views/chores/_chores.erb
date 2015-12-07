@@ -1,39 +1,65 @@
 <% if chores %>
-  <ul class="chores">
-    <li class="headings">
-      <div class="name">Chore</div>
-      <div class="points">Points</div>
-      <div class="length-of-time">Length of Time</div>
-      <div class="times-per-week">Times Per Week</div>
-      <div class="actions">
-      </div>
-    </li>
+	
+  <table>
+  
+    <tr >
+      <th >Chore</th>
+      <th >Points</th>
+      <th >Length of Time</th>
+      <th >Times Per Week</th>
+      <th></th>
+	  <% if current_user == current_user.household.head_of_household %>
+	  <th>Edit</th>
+	  <th>Delete</th>
+	  <% end %>
+    </tr>
+	
     <% chores.each do |chore| %>
-    <li class="chore">
-      <div class="name"><%= chore.name %>   
-        <% if current_user == chore.household.head_of_household %>
-          <div class="edit-delete">
-            <%= link_to "Edit", edit_household_chore_path(chore.household, chore) %> | 
-            <%= link_to "Delete", household_chore_path(chore.household, chore), method: :delete %>
-          </div>
-        <% end %>
-      </div>
-      <div class="points"><%= chore.points %></div>
-      <div class="length-of-time"><%= chore.length_of_time %></div>
-      <div class="times-per-week"><%= chore.times_per_week %></div>
-      <div class="actions">
+	
+    <tr>
+      <td ><%= chore.name %>   
+
+      </td>
+	  
+      <td><%= chore.points %></td>
+	  
+      <td><%= chore.length_of_time %></td>
+	  
+      <td><%= chore.times_per_week %></td>
+	  
+      <td>
         <% if chore.household.unassigned_chores.include? chore %> 
          <%= button_to "I'll do this chore", assign_household_chore_path(chore.household, chore), method: :put %>
         <% end %>
         <% if current_user.uncompleted_chores.include? chore %>
+		
         <div class="complete">
           <%= button_to "Complete Chore", complete_household_chore_path(chore.household, chore), method: :put%>
         </div>
+		
         <% end %>
-      </div>
-    </li>
+      </td>
+	  <% if current_user == chore.household.head_of_household %>
+	  <td class="edit_chore">
+		<%= link_to image_tag("/images/cog.png"), edit_household_chore_path(chore.household, chore) %>
+		
+	  </td>
+	  
+	  <td>
+		 <%= link_to "Delete", household_chore_path(chore.household, chore), method: :delete %>
+	  </td>
+	   <% end %>
+    </tr>
+	
     <% end %>
-  </ul>
+	
+  </table>
+  
+   <% if current_user.household == @household %>
+      <div class="add-chore">
+        <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
+      </div>
+	<% end %>
 <% else %>
   <p><em>There are no chores!</em></p>
 <% end %>

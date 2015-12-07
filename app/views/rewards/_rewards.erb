@@ -1,21 +1,28 @@
 <% if rewards %>
-  <ul class="rewards">
-    <li class="headings">
-      <div class="name">Reward</div>
-      <div class="points">Points</div>
-      <div class="actions">
-      </div>
-    </li>
+	
+	
+
+  <table>
+    <tr>
+      <th>Reward</th>
+      <th>Points</th>
+      <th></th>
+	  <% if current_user == current_user.household.head_of_household %>
+	  <th>Edit</th>
+	  <th>Delete</th>
+	  <% end %>
+    </tr>
+	
     <% rewards.each do |reward| %>
-    <li class="reward">
-      <div class="name"><%= reward.name %>
-          <div class="edit-delete">
-            <%= link_to "Edit", edit_household_reward_path(reward.household, reward) %> | 
-            <%= link_to "Delete", household_reward_path(reward.household, reward), method: :delete %>
-          </div>
-      </div>
-      <div class="points"><%= reward.points %></div>
-      <div class="actions">
+	
+    <tr>
+      <td><%= reward.name %>
+          
+      </td>
+	  
+      <td><%= reward.points %></td>
+      
+	  <td>
         <% claimed_list ||= false %>
         <% if !claimed_list %>
           <% if current_user.points >= reward.points %> 
@@ -24,10 +31,30 @@
             <em>Earn <%= points_until_reward(reward) %> more points!</em>
           <% end %>
         <% end %>
-      </div>
-    </li>
+      </td>
+    
+	<% if current_user == current_user.household.head_of_household %>
+	  <td class="edit_chore">
+		<%= link_to image_tag("/images/cog.png"), edit_household_reward_path(reward.household, reward) %>
+		
+	  </td>
+	  
+	  <td>
+		 <%= link_to "Delete", household_reward_path(reward.household, reward), method: :delete %>
+	  </td>
+	   <% end %>
+	
+	</tr>
     <% end %>
-  </ul>
+	
+  </table>
+  
+  <% if current_user.household == @household %>
+    <div class="add-reward">
+        <%= button_to "Add New Reward", new_household_reward_path(@household), method: :get %>
+      </div>
+    <% end %>
+  
 <% else %>
   <p><em>There are no rewards!</em></p>
 <% end %>

@@ -1,8 +1,8 @@
 class Chore < ActiveRecord::Base
   belongs_to :household
   belongs_to :user, foreign_key: 'user_id'
-  #has_many :user_chores
-  #has_many :users, through: :user_chores, source: :user
+  has_many :user_chores
+  has_many :users, through: :user_chores, source: :user
   
   
   validates :name, presence: true

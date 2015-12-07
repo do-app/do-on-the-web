@@ -138,7 +138,10 @@ h3 > img, h3 > a > img {
 	border-collapse: collapse;
 	background-color: lightgrey;
 	border-radius: 5px;
+	
 }
+
+
 
 #members_list > table th{
 	padding: 5px;
@@ -152,7 +155,7 @@ h3 > img, h3 > a > img {
 	
 }
 
-#chores_list{
+.chores_list{
 	background-color: #66CD00;
 	width: 75%;
 	
@@ -165,7 +168,7 @@ h3 > img, h3 > a > img {
 }
 
 
-#chores_list > table, #chores_list > table  th, #chores_list > table  td {
+.chores_list > table, .chores_list > table  th, .chores_list > table  td {
 	border: 1px solid black;
 	margin: 1%; 
 	background-color: white;
@@ -173,28 +176,29 @@ h3 > img, h3 > a > img {
 	border-radius: 10px;
 }
 
-#chores_list > table{
+.chores_list > table{
 	background-color: lightgrey;
+	width: 96%;
 }
 
-#chores_list > table th {
+.chores_list > table th {
 	padding: 10px;
 	border-radius: 0px;
 }
 
-#chores_list > table td{
+.chores_list > table td{
 	padding: 10px;
 	border-radius: 0px;
 }
 
-#chores_list > table td img{
-	width: 50%;
-	height: auto
+.chores_list > table td img{
+	width: 40px;
+	height: auto;
 }
 
-#chores_list > table td form input[type=image]{
-	width: 50%;
-	height: auto
+.chores_list > table td form input[type=image]{
+	width: 40px;
+	height: auto;
 }
 
 #add_chore > form > input[type=submit]{
@@ -210,7 +214,7 @@ h3 > img, h3 > a > img {
 	padding: 5px;
 }
 
-#chores_list > table >caption{
+.chores_list > table >caption{
 	margin: 5px 5px 5px 5px;
 	background-color: ;
 	text-align: left;
@@ -253,4 +257,55 @@ h3 > img, h3 > a > img {
 
 #search{
 	height: 28px;
+}
+
+.rewards_list{
+	background-color: #66CD00;
+	width: 50%;
+	display: inline;
+	text-align: center;
+	float: right;
+	margin: 0 2%;
+	margin-top: 30px;
+	border-radius: 10px;
+	padding-bottom: 30px;
+}
+
+
+.rewards_list > table, .rewards_list > table  th, .rewards_list > table  td {
+	border: 1px solid black;
+	margin: 1%; 
+	background-color: white;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.rewards_list > table{
+	background-color: lightgrey;
+	width: 96%;
+}
+
+.rewards_list > table th {
+	padding: 10px;
+	border-radius: 0px;
+}
+
+.rewards_list > table td{
+	padding: 10px;
+	border-radius: 0px;
+}
+
+.rewards_list > table td img{
+	width: 40px;
+	height: auto;
+}
+
+.rewards_list > table td form input[type=image]{
+	width: 40px;
+	height: auto;
+}
+
+.edit_chore > form input[type=image]{
+	width: 40px;
+	height: auto;
 }
