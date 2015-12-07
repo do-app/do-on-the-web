@@ -1,4 +1,4 @@
-<h1><%= @household.name %></h1>
+<h1 id="housename"><%= @household.name %></h1>
 
 <% unless current_user.household %>
   <%= button_to "Join Household", join_household_path(@household), method: :put %>
@@ -8,13 +8,17 @@
 
 <% if @household.members %>
  <div id="members_list" >
- <h3>Members</h3>
-  <ul class="members">
+ 
+  <table id="members">
+	<tr><th>Members</th><th>Points</th></tr>
     <% @household.members.each do |member| %>
-      <li><%= link_to member.name, user_path(member) %></li>
-
+      <tr>
+	  <td><%= link_to member.name, user_path(member) %></td>
+	  <td><%= member.points %></li></td>
+	  </tr>
     <% end %>
-  </ul>
+
+  </table>
  </div>
 <% end %>
 
@@ -23,13 +27,13 @@
 
 
 <div id=chores_list>
- <h2>Your Chores</h2>
+ <h2>House Chores</h2>
    <table>
      <tr>
 		<th class=chore> Chore </th>
 		<th class=chore_points> Points </th>
 		<th class=chore_user> Assigned </th>
-		<th class=chore_status> Completed </th>
+		<th class=chore_status> Completion </th>
      </tr>
      <tr>
 		<% @household.chores.each do |chore| %>
@@ -61,9 +65,12 @@
 
 	</table>
 
+	<div id="add_chore">
 <% if current_user.household == @household %>
   <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
 <% end %>
+</div>
+
 
 <div class="leave">
 <% if current_user.household == @household %>

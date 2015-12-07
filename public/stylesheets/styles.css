@@ -22,6 +22,7 @@ form input[type=submit]{
 }
 
 nav{
+	
 	background-color: #66CD00;
 	height: 50px;
 	width: auto;
@@ -53,55 +54,114 @@ nav > div > a:visited{
 	color: white;
 }
 
+
 h3 > img, h3 > a > img {
 	height: 25px;
 	width: auto;
 }
 
+#screenshot{
+	display: inline-block;
+	
+	width:70%;
+	margin-top: 30px;
+	margin-left: 20px;
+}
+
+#screenshot > img{
+	display: inline-block;
+	width: 100%;
+	background: black;
+	padding: 3px;
+	border-radius: 10px;
+}
 
 #logout{
 	float: right;
 }
 
+#signup_message{
+	display:inline-block;
+	width: 50%;
+	vertical-align: top;
+	padding: 50px 50px;
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 1.3em;
+}
+
 #signup{
+	display: inline-block;
 	background-color: lightgrey;
 	width: 300px;
 	margin: auto;
+	margin-top: 30px;
 	padding: 50px 0px;
 }
 
 #login{
 	background-color: lightgrey;
-	width: 300px;
-	margin: auto;
+	width: 20%;
+	margin: 20px;
+	margin-top: 80px;
 	padding: 60px 0px;
+	display: inline-block;
+	vertical-align: top;
+	border: 4px solid black;
 }
 
 
+#housename{
+	text-align: center;
+	font-size: 36px;
+}
+
 #members_list{
-	background: lightgrey;
-	width: 15%;
-	padding: 10px 0;
+	background-color: #66CD00;
+	width: 20%;
+	padding: 14px 0;
 	text-align: center;
 	display: inline-block;
 	vertical-align: top;
+	margin-top: 20px;
+	margin-left: 10px;
+	border-radius: 10px;
+	font-size: 20px;
+
 }
 
-#members_list > ul{
-	list-style: none;
-	padding: 0;
+#members_list > table {
+	text-align: center;
+	margin: 5px auto;
+	
+	width: 95%;
+	border-collapse: collapse;
+	background-color: lightgrey;
+	border-radius: 5px;
+}
+
+#members_list > table th{
+	padding: 5px;
+	
+}
+
+#members_list > table td{
+	
+	font-size: 16px;
+	padding: 7px;
 	
 }
 
 #chores_list{
 	background-color: #66CD00;
-	width: 80%;
+	width: 75%;
 	
 	display: inline;
 	text-align: center;
 	float: right;
 	margin: 0 2%;
 	border-radius: 10px;
+	padding-bottom: 30px;
 }
 
 
@@ -135,6 +195,11 @@ h3 > img, h3 > a > img {
 #chores_list > table td form input[type=image]{
 	width: 50%;
 	height: auto
+}
+
+#add_chore > form > input[type=submit]{
+	border-radius: 5px;
+	height: 30px;
 }
 
 .chore{

@@ -1,5 +1,6 @@
 <?php
-
+session_id('mySessionID');
+session_start();
    $dbhost = 'localhost';
    $dbuser = 'root';
    $dbpass = 'dbdoapp2015';
@@ -16,8 +17,16 @@
 */ 
 
    // This SQL statement selects ALL from the table 'Locations'
-$sql = "SELECT name, points from chores where household_id=2";
- 
+
+$query1="SELECT household_id from users WHERE email='{$_SESSION['sessionEmail']}'";
+$result1=mysqli_query($conn,$query1);
+$householdInfo=mysqli_fetch_row($result1);
+$householdResult=$householdInfo[0];
+
+
+
+//$sql = "SELECT name, points from chores where household_id=2";
+$sql = "SELECT name, points from choresEdit where household_id='$householdResult'"; 
 
 // Check if there are results
 if ($result = mysqli_query($conn,$sql))

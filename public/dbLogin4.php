@@ -1,4 +1,6 @@
 <?php
+session_id('mySessionID');
+session_start();
 header('Content-type: application/json');
    $dbhost = 'localhost';
    $dbuser = 'root';
@@ -27,15 +29,10 @@ if($_POST) {
 
 }else {    echo '{"success":0,"error_message":"Username and/or password is invalid."}';}
 */
-//session_start();
 
-//echo 'Welcome to page #1';
-
-//$_SESSION['sessionEmail'] = $_POST['username'];
-
-// Works if session cookie was accepted
-//echo '<br /><a href="page2.php">page 2</a>';
-
+$name = $_POST['username'];
+$_SESSION['sessionEmail'] = $name;
+ 
 
 if($_POST) 
 { 
