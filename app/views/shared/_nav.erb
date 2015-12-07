@@ -16,6 +16,8 @@
    	<h1 align=center>  You're not currently a member of a household!</h1>
    	</br>
    <% else %>
+   
+   <!--
    	<% current_user.household.chores.each do |m| %>
    		<% if (m.user != current_user) and (m.status == "waiting") %>
 			<h3>
@@ -28,6 +30,7 @@
 			</h3>
 		<% end %>
    	<% end %>
+	-->
    <% end %>
 
   <% else %>

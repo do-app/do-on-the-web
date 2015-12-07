@@ -6,7 +6,7 @@
       <th >Points</th>
       <th >Length of Time</th>
       <th >Times Per Week</th>
-      <th></th>
+     <!-- <th></th> -->
 	  <% if current_user == current_user.household.head_of_household %>
 	  <th>Edit</th>
 	  <th>Delete</th>
@@ -25,7 +25,7 @@
       <td><%= chore.length_of_time %></td>
 	  
       <td><%= chore.times_per_week %></td>
-	  
+	  <!--
       <td>
         <% if chore.household.unassigned_chores.include? chore %> 
          <%= button_to "I'll do this chore", assign_household_chore_path(chore.household, chore), method: :put %>
@@ -38,6 +38,7 @@
 		
         <% end %>
       </td>
+	  -->
 	  <% if current_user == chore.household.head_of_household %>
 	  <td class="edit_chore">
 		<%= link_to image_tag("/images/cog.png"), edit_household_chore_path(chore.household, chore) %>

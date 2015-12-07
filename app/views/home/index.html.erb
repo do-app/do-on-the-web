@@ -17,30 +17,29 @@
 		<th class=chore_status> Completed </th>
      </tr>
 	 
-	 <% current_user.household.chores.each do |chore| %>
-		<% if current_user == chore.user %>
+	 <% current_user.chores.each do |chore| %>
+		
 	 
 			<tr>
 				<td class=chore> <%= chore.name %> </td>
 				<td class=chore_points> <%= chore.points %> </td>
 				
 				<td class=chore_status> 
-				<% if chore.status == "complete" %>
-					<img src="/images/check.svg" >
-				<% elsif chore.status == "waiting" %>
-					<img src="/images/circle2.svg">
-				<% elsif chore.status == "incomplete" %>
-					
-					
 				
+				
+				<% if current_user.uncompleted_chores.include? chore %>
+					
+					<%= link_to image_tag("/images/x_mark.png"), complete_household_chore_path(chore.household, chore), method: :put %> 
+				<% else %>
+					<img src="/images/check.svg" >
 				<% end %>
 				</td>
 			</tr>
-		<% end %>
+		
 	 <% end %>
 	 
-	<caption> Chores with a checkmark have been completed, ones with a circle are awaiting verification, and chores with Xs are incomplete.
-	Clicking on an X will send out a request for your chore to be verified.
+	<caption> Chores with a checkmark have been completed, and chores with Xs are incomplete.
+	Clicking on an X will mark the chore as completed.
    </table>
 </div>
 

@@ -13,8 +13,11 @@ default: &default
 development:
   <<: *default
   database: mydatabase
-  username: root
-  password: ''
+  #anna uses the currently commented username and password
+  #username: root
+  #password: ''
+  username: capstone
+  password: capstone
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

@@ -39,8 +39,7 @@ class ChoresController < ApplicationController
     household = Household.find_by(id: params[:household_id])
     if validate_current_user_belongs_to_household (household)
       chore = Chore.new(chore_params)
-	  chore.length_of_time = 0
-	  chore.times_per_week = 0
+	
       household.chores << chore
       if household.save
         flash[:success] = "Success! Chore created!"
@@ -65,7 +64,7 @@ class ChoresController < ApplicationController
     if validate_current_user_belongs_to_household (household)
       chore.update(chore_params)
       if chore.save
-        flash[:success] = "Chore updated!"
+        #flash[:success] = "Chore updated!"
         redirect_to household
       else 
         flash[:errors] = chore.errors.full_messages
@@ -80,7 +79,7 @@ class ChoresController < ApplicationController
     redirect_to household and return unless belongs_to_household? chore, household
     if validate_current_user_belongs_to_household (household)
       if current_user.assigned_chores << chore
-        flash[:success] = "#{chore.name} has been assigned to you."
+        #flash[:success] = "#{chore.name} has been assigned to you."
         redirect_to household
       else 
         flash[:errors] = current_user.errors.full_messages
@@ -96,12 +95,12 @@ class ChoresController < ApplicationController
       assigned_chore.completed = true
       user.points += assigned_chore.chore.points
       if assigned_chore.save && user.save
-        flash[:success] = "You have completed '#{assigned_chore.chore.name}' for #{assigned_chore.chore.points}!"
+        #flash[:success] = "You have completed '#{assigned_chore.chore.name}' for #{assigned_chore.chore.points}!"
       else
         flash[:errors] = user.errors.full_messages + assigned_chore.errors.full_messages
       end
     else
-      flash[:error] = "No chore could be found!"
+      #flash[:error] = "No chore could be found!"
     end
     redirect_to :back
   end
@@ -112,7 +111,7 @@ class ChoresController < ApplicationController
     redirect_to household and return unless belongs_to_household? chore, household
     if validate_current_user_belongs_to_household (household)
       if chore.destroy
-        flash[:success] = "Your chore was deleted!"
+        #flash[:success] = "Your chore was deleted!"
         redirect_to household
       else
         flash[:errors] = chore.errors.full_messages
