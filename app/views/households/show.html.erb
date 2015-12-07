@@ -1,79 +1,47 @@
 <h1 id="housename"><%= @household.name %></h1>
 
-<% unless current_user.household %>
-  <%= button_to "Join Household", join_household_path(@household), method: :put %>
-<% end %>
+<div class="left-sidebar">
+  <% unless current_user.household %>
+    <%= button_to "Join Household", join_household_path(@household), method: :put %>
+  <% end %>
 
+  <div class="add">
+    <% if current_user.household == @household %>
+      <div class="add-chore">
+        <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
+      </div>
 
-
-<% if @household.members %>
- <div id="members_list" >
- 
-  <table id="members">
-	<tr><th>Members</th><th>Points</th></tr>
-    <% @household.members.each do |member| %>
-      <tr>
-	  <td><%= link_to member.name, user_path(member) %></td>
-	  <td><%= member.points %></li></td>
-	  </tr>
+      <div class="add-reward">
+        <%= button_to "Add New Reward", new_household_reward_path(@household), method: :get %>
+      </div>
     <% end %>
+  </div>
+  <% if @household.members %>
+   <div id="members_list" >
+   <h3>Members</h3>
+    <ul class="members">
+      <% @household.members.each do |member| %>
+        <li><%= link_to member.name, user_path(member) %></li>
+      <% end %>
+    </ul>
+   </div>
+  <% end %>
 
-  </table>
- </div>
-<% end %>
-
-<!-- <%= render partial: "chores/chores", locals: { chores: @household.chores } %> -->
-
-
-
-<div id=chores_list>
- <h2>House Chores</h2>
-   <table>
-     <tr>
-		<th class=chore> Chore </th>
-		<th class=chore_points> Points </th>
-		<th class=chore_user> Assigned </th>
-		<th class=chore_status> Completion </th>
-     </tr>
-     <tr>
-		<% @household.chores.each do |chore| %>
-			<td class=chore> <%= chore.name %> </td>
-			<td class=chore_points> <%= chore.points %> </td>
-			<td class=chore_user> 
-				<%= 
-				if( chore.user == nil )
-					"----" 
-				else
-					chore.user.name 
-				end %>
-			</td>
-			
-			<td class=chore_status> 
-			
-			<% if chore.status == "complete" %>
-				<img src="/images/check.svg" >
-			<% elsif chore.status == "incomplete" %>
-				<img src="/images/x_mark.png">
-			<% elsif chore.status == "waiting" %>
-				<img src="/images/circle2.svg">
-			<% else %>
-				<img src="/images/line.png">
-			<% end %>
-			</td>
-     </tr>
-	 <% end %>
-
-	</table>
-
-	<div id="add_chore">
-<% if current_user.household == @household %>
-  <%= button_to "Add New Chore", new_household_chore_path(@household), method: :get %>
-<% end %>
+  <div class="leave">
+  <% if current_user.household == @household %>
+    <%= link_to "Leave Household", leave_household_path(@household), method: :put %>
+  <% end %>
+  </div>
 </div>
 
+<div class="main-right">
+  <h2>Chores</h2>
+  <div class="chores-list">
+  <%= render partial: "chores/chores", locals: { chores: @household.chores } %>
+  </div>
 
-<div class="leave">
-<% if current_user.household == @household %>
-  <%= button_to "Leave Household", leave_household_path(@household), method: :put %>
-<% end %>
+  <h2>Rewards</h2>
+  <div class="rewards-list">
+  <%= render partial: "rewards/rewards", locals: { rewards: @household.rewards } %>
+  </div>
 </div>

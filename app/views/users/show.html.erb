@@ -1,27 +1,60 @@
 
-<h1>Hello <%= @user.name %>!</h1>
+<div class="left-sidebar">
+  <% if current_user == @user %>
+  <h1>Hello <%=current_user.name %>!</h1>
+  <% else %>
+  <h1> <%= @user.name %></h1>
+  <% end %>
+  <div class="points-indicator" > 
+    <h2>Points</h2>
+    <h1><%= @user.points %></h1>    
+  </div>
 
-<%= link_to "Visit your household", household_path(@user.household) %>
+  <%if current_user == @user and @user.household %>
+    <%= link_to "Visit your household", household_path(@user.household) %>
+  <% end %>
 
-<h2>Here are your chores</h2>
+  <% if current_user == @user %>
+    <h2>Your Account</h2>
+    <div>
+      <strong>Name:</strong>
+      <%= @user.name %>
+    </div>
 
-<%= render partial: "chores/chores", locals: { chores: @user.chores } %>
+    <div>
+      <strong>Email:</strong>
+      <%= @user.email %>
+    </div>
 
-
-<h2>Edit Your Account</h2>
-<div>
-  <strong>Name:</strong>
-  <%= @user.name %>
+    <%= link_to 'Edit', edit_user_path(@user) %>
+  <% end %>
 </div>
+<div class="main-right">
+  <% if @user.household %>
+    <% if current_user == @user %>
+      <h2>Your chores for this week</h2>
+    <% else %>
+      <h2><%= @user.name%>'s chores for this week</h2>
+    <% end %>
+    <div class="chores-list">
+      <%= render partial: "chores/chores", locals: { chores: @user.chores } %>
+    </div>
 
-<div>
-  <strong>Email:</strong>
-  <%= @user.email %>
+    <h2>Available rewards:</h2>
+    <div class="rewards-list">
+      <%= render partial: "rewards/rewards", locals: { rewards: @user.household.rewards } %>
+    </div>
+
+    <% if current_user == @user %>
+      <h2>Rewards you've claimed</h2>
+    <% else %>
+      <h2>Rewards <%= @user.name%> has claimed</h2>
+    <% end %>
+    <div class="rewards-list">
+      <%= render partial: "rewards/rewards", locals: { rewards: @user.claimed_rewards, claimed_list: true} %>
+    </div>
+  <% else %>
+      <h2 align="center">You're not currently a member of a household!</h2>
+      <h3 align="center"><%=link_to "Find your household or create a new one!", households_path %></h3>
+  <% end %>
 </div>
-
-<div>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</div>
-
-<%= link_to 'Edit', edit_user_path(@user) %>

@@ -1,0 +1,147 @@
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: 'Roboto', verdana, arial, helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  margin: 0 10px;
+  padding: 0;
+}
+
+p, ol, ul, td {
+  font-family: 'Roboto', arial, helvetica, sans-serif;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+form input[type=submit]{
+  cursor: pointer;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+
+  &:visited {
+    color: #666;
+  }
+
+  &:hover {
+    color: #fff;
+    background-color: #000;
+  }
+}
+
+nav { 
+  background-color: #66CD00;
+  height: 50px;
+  width: auto;
+  margin: 0 -10px;
+  padding: 5px 5px;
+  font-size: 20px;
+  &> div {
+    display: inline-block;
+    height: 100%;
+    line-height: 50px;
+    padding: 0px 10px;
+    color: white;
+    font-weight: bolder;
+  }
+  a { 
+    color: white;
+    &:visited { 
+      color: white;
+    }
+  }
+
+  #logout{
+    float: right;
+  }
+
+  #signup{
+    background-color: lightgrey;
+    width: 300px;
+    margin: auto;
+    padding: 50px 0px;
+  }
+
+  #login{
+    background-color: lightgrey;
+    width: 300px;
+    margin: auto;
+    padding: 60px 0px;
+  }
+}
+
+div {
+  &.field, &.actions {
+    margin-bottom: 10px;
+  }
+}
+
+#notice {
+  color: green;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff;
+  }
+
+  ul li {
+    font-size: 12px;
+    list-style: square;
+  }
+}
+
+.points-indicator{
+  width:100%;
+  text-align: center;
+  background-color: lightgrey;
+  height: 150px;
+  padding-top: 15px;
+  h1 {
+    font-size: 40px;
+  }
+
+}
+
+.content {
+  width: 100%;
+}
+.left-sidebar { 
+  float:left;
+  width:15%;
+  padding:10px;
+  text-align: center;
+}
+.main-right { 
+  width: 80%;
+  padding:10px;
+  float: right;
+}

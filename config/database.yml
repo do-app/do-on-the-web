@@ -23,12 +23,3 @@ test:
   <<: *default
   database: do-app_test
   username: root
-  password: dbdoapp2015
-
-production:
-  <<: *default
-  host: localhost 
-  database: mydatabase
-  username: capstone
-  password: capstone
-

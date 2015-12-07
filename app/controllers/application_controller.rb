@@ -16,6 +16,22 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-  
- 
+
+  def validate_current_user_belongs_to_household (household)
+    if current_user.household != household
+      flash[:error] = "You must be a member of this household to edit this chore."
+      redirect_to (current_user.household ? current_user.household : households_path) and return
+    else
+      true
+    end
+  end
+
+  def belongs_to_household? (item, household)
+    if item.household != household
+      flash[:error] = "#{item.name} does not belong to household"
+      false
+    else 
+      true
+    end
+  end
 end

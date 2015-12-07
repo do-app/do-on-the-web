@@ -1,0 +1,36 @@
+
+#members_list{
+  background: lightgrey;
+  padding: 10px 0;
+  vertical-align: top;
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+}
+
+.add-chore{
+  padding:20px;
+  display:block;
+}
+
+.leave{
+  display:block;
+  padding: 20px;
+}
+
+.results tr td{
+  font-size: 25px;
+  padding: 5px;
+  font-family: Roboto;
+  font-weight: bold;
+}
+
+.household-search > form input {
+  height: 32px;
+  font-size: 20px;
+}
+
+#search{
+  height: 28px;
+}

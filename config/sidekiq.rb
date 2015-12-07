@@ -1,18 +1,11 @@
-if Rails.env.production?
-  Sidekiq.configure_server do |config|
-    config.redis = { url: 'ENV["REDIS_URL"]' }
-  end
+ENV["REDIS_URL"] ||= "redis://localhost:6379"
 
-  Sidekiq.configure_client do |config|
-    config.redis = { url: 'ENV["REDIS_URL"]' }
-  end
-  
-else
-  Sidekiq.configure_server do |config|
-    config.redis = { url: 'redis://localhost:6379/12' }
-  end
+Sidekiq.configure_server do |config|
+  config.redis = { url: ENV["REDIS_URL"], namespace: "sidekiq" }
+end
 
+unless Rails.env.production? 
   Sidekiq.configure_client do |config|
-    config.redis = { url: 'redis://localhost:6379/12' }
+    config.redis = { url: ENV["REDIS_URL"], namespace: "sidekiq" }
   end
 end
