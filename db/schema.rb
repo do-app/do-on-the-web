@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20151205231244) do
     t.integer  "household_id", limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "chore_id",     limit: 4
   end
 
   create_table "rewards", force: :cascade do |t|
@@ -73,8 +74,6 @@ ActiveRecord::Schema.define(version: 20151205231244) do
     t.string   "password_digest", limit: 255
     t.integer  "num_chores",      limit: 4
   end
-
-  add_index "users", ["household_id"], name: "index_users_on_household_id", using: :btree
 
   create_table "users_chores", force: :cascade do |t|
     t.integer  "user_id",    limit: 4,                 null: false
