@@ -79,7 +79,7 @@ class ChoresController < ApplicationController
     redirect_to household and return unless belongs_to_household? chore, household
     if validate_current_user_belongs_to_household (household)
       if current_user.assigned_chores << chore
-        #flash[:success] = "#{chore.name} has been assigned to you."
+        flash[:success] = "#{chore.name} has been assigned to you."
         redirect_to household
       else 
         flash[:errors] = current_user.errors.full_messages
@@ -95,12 +95,12 @@ class ChoresController < ApplicationController
       assigned_chore.completed = true
       user.points += assigned_chore.chore.points
       if assigned_chore.save && user.save
-        #flash[:success] = "You have completed '#{assigned_chore.chore.name}' for #{assigned_chore.chore.points}!"
+        flash[:success] = "You have completed '#{assigned_chore.chore.name}' for #{assigned_chore.chore.points}!"
       else
         flash[:errors] = user.errors.full_messages + assigned_chore.errors.full_messages
       end
     else
-      #flash[:error] = "No chore could be found!"
+      flash[:error] = "No chore could be found!"
     end
     redirect_to :back
   end
