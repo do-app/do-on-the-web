@@ -28,12 +28,14 @@
 	  
       <td>
         <% if chore.household.unassigned_chores.include? chore %> 
-         <%= button_to "I'll do this chore", assign_household_chore_path(chore.household, chore), method: :put %>
-        <% elsif current_user.uncompleted_chores.include? chore %>
-		
-          <%= link_to image_tag("/images/x_mark.png"), complete_household_chore_path(chore.household, chore), method: :put %> 
-          <% else %>
-          <img src="/images/check.svg" >
+          <%= button_to "I'll do this chore", assign_household_chore_path(chore.household, chore), method: :put %>
+        <% end %>
+        <% if current_user.chores.include? chore %>
+          <% if current_user.uncompleted_chores.include? chore %>
+            <%= link_to image_tag("/images/x_mark.png"), complete_household_chore_path(chore.household, chore), method: :put %> 
+            <% else %>
+            <img src="/images/check.svg" >
+          <% end %>
         <% end %>
       </td>
 	  <% if current_user == chore.household.head_of_household %>

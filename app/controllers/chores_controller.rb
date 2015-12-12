@@ -111,7 +111,7 @@ class ChoresController < ApplicationController
     redirect_to household and return unless belongs_to_household? chore, household
     if validate_current_user_belongs_to_household (household)
       if chore.destroy
-        #flash[:success] = "Your chore was deleted!"
+        flash[:success] = "Your chore was deleted!"
         redirect_to household
       else
         flash[:errors] = chore.errors.full_messages
