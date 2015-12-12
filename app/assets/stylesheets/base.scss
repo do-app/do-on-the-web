@@ -145,3 +145,17 @@ div {
   padding:10px;
   float: right;
 }
+
+.flash {
+  padding: 20px;
+  text-align:center
+  font-weight:bold;
+  font-size:1.5em;
+  width:100%;
+  &.success {
+    background-color: #C5E1A5;
+  }
+  &.error, &.errors {
+    background-color: #FF8A80;
+  }
+}
